@@ -1,0 +1,288 @@
+import type { MetaFunction } from "@remix-run/node";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ChevronDown, Zap, Star, Crown } from "lucide-react";
+import { Link } from "@remix-run/react";
+
+export const meta: MetaFunction = () => [
+  { title: "Membership — XEN Gym" },
+  { name: "description", content: "Join XEN Gym. Choose a membership plan that works for you — drop-in, monthly or annual." },
+];
+
+const plans = [
+  {
+    id: "drop-in",
+    icon: Zap,
+    name: "Drop-In",
+    tagline: "Try before you commit",
+    price: { monthly: "18", annual: "18" },
+    unit: "per class",
+    highlight: false,
+    features: [
+      "Access to any single class",
+      "All class types included",
+      "Cafe discount (10%)",
+      "No commitment required",
+      "Towel hire available",
+    ],
+    notIncluded: [
+      "Priority booking",
+      "Guest passes",
+      "Unlimited classes",
+    ],
+    cta: "Book a Class",
+    to: "/book",
+  },
+  {
+    id: "monthly",
+    icon: Star,
+    name: "Monthly",
+    tagline: "Most flexible",
+    price: { monthly: "79", annual: "69" },
+    unit: "per month",
+    highlight: true,
+    features: [
+      "Unlimited classes",
+      "All class types included",
+      "Priority booking (24hr early)",
+      "Cafe discount (15%)",
+      "1 guest pass per month",
+      "Cancel anytime",
+      "Free towel service",
+    ],
+    notIncluded: [
+      "Annual saving",
+    ],
+    cta: "Join Monthly",
+    to: "/join?plan=monthly",
+  },
+  {
+    id: "annual",
+    icon: Crown,
+    name: "Annual",
+    tagline: "Best value",
+    price: { monthly: "828", annual: "59" },
+    unit: "per month",
+    highlight: false,
+    badge: "Save £240/yr",
+    features: [
+      "Unlimited classes",
+      "All class types included",
+      "Priority booking (48hr early)",
+      "Cafe discount (20%)",
+      "2 guest passes per month",
+      "Free towel service",
+      "Free nutrition consultation",
+      "Exclusive member events",
+    ],
+    notIncluded: [],
+    cta: "Join Annual",
+    to: "/join?plan=annual",
+  },
+];
+
+const faqs = [
+  {
+    q: "Can I freeze my membership?",
+    a: "Yes. Monthly members can freeze for up to 4 weeks per year. Annual members can freeze for up to 8 weeks. Just drop us an email at hello@xengym.co.uk.",
+  },
+  {
+    q: "What classes are included?",
+    a: "All memberships include access to our full timetable: Reformer Pilates, HIIT, Strength, Yoga, Spin, Barre and more. Check the schedule for full details.",
+  },
+  {
+    q: "Do I need to book in advance?",
+    a: "Yes, all classes must be pre-booked through the app or website. Monthly and Annual members get priority access to booking windows.",
+  },
+  {
+    q: "Is there a joining fee?",
+    a: "No joining fee, ever. We believe in transparent pricing.",
+  },
+  {
+    q: "Can I bring a friend?",
+    a: "Monthly members receive 1 guest pass per month, Annual members receive 2. Additional guest passes can be purchased for £15 per class.",
+  },
+  {
+    q: "What is your cancellation policy?",
+    a: "Monthly memberships can be cancelled with 30 days notice. Annual memberships are non-refundable but can be transferred to another person.",
+  },
+];
+
+export default function MembershipPage() {
+  const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative h-72 flex items-center justify-center bg-forest overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80')" }}
+        />
+        <div className="relative z-10 text-center text-white px-4">
+          <p className="text-xs tracking-widest uppercase text-white/60 mb-3">XEN Gym</p>
+          <h1 className="font-display text-5xl md:text-6xl mb-4">Join XEN</h1>
+          <p className="text-white/70 max-w-md mx-auto">Unlimited movement. Your way.</p>
+        </div>
+      </section>
+
+      {/* Billing toggle */}
+      <section className="py-16 text-center bg-sand">
+        <p className="text-sm text-gray-500 mb-5">Choose your billing</p>
+        <div className="inline-flex items-center border border-sand bg-white p-1 rounded-2xl">
+          {(["monthly", "annual"] as const).map((b) => (
+            <button
+              key={b}
+              onClick={() => setBilling(b)}
+              className={`px-8 py-2.5 text-sm font-medium tracking-wide capitalize transition-all duration-300 rounded-xl ${
+                billing === b ? "bg-forest text-white shadow-md" : "text-gray-500 hover:text-forest"
+              }`}
+            >
+              {b}
+              {b === "annual" && (
+                <span className="ml-2 text-xs bg-bark text-white px-1.5 py-0.5 rounded-md">Save 25%</span>
+              )}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Plans */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-6">
+          {plans.map((plan, i) => {
+            const Icon = plan.icon;
+            return (
+              <motion.div
+                key={plan.id}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: plan.highlight ? 1.05 : 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                whileHover={{ y: plan.highlight ? -6 : -4, transition: { duration: 0.25 } }}
+                className={`relative flex flex-col p-8 rounded-3xl ${
+                  plan.highlight
+                    ? "bg-forest text-white shadow-2xl z-10"
+                    : "bg-white border border-sand shadow-sm hover:shadow-lg transition-shadow duration-300"
+                }`}
+              >
+                {plan.badge && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-bark text-white text-xs px-4 py-1.5 tracking-widest uppercase whitespace-nowrap rounded-full">
+                    {plan.badge}
+                  </span>
+                )}
+                <div className={`w-11 h-11 flex items-center justify-center mb-5 rounded-xl ${plan.highlight ? "bg-white/20" : "bg-sand"}`}>
+                  <Icon size={18} className={plan.highlight ? "text-white" : "text-forest"} />
+                </div>
+                <p className={`text-xs tracking-widest uppercase mb-1 ${plan.highlight ? "text-white/60" : "text-gray-400"}`}>
+                  {plan.tagline}
+                </p>
+                <h2 className="font-display text-2xl mb-4">{plan.name}</h2>
+                <div className="mb-8">
+                  <motion.span
+                    key={`${plan.id}-${billing}`}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="font-display text-5xl inline-block"
+                  >
+                    £{billing === "annual" && plan.id !== "drop-in" ? plan.price.annual : plan.price.monthly}
+                  </motion.span>
+                  <span className={`text-sm ml-1 ${plan.highlight ? "text-white/70" : "text-gray-400"}`}>/{plan.unit}</span>
+                </div>
+
+                <ul className="space-y-3 flex-1 mb-8">
+                  {plan.features.map((f, fi) => (
+                    <motion.li
+                      key={f}
+                      initial={{ opacity: 0, x: -8 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 + fi * 0.04 }}
+                      className="flex items-start gap-3 text-sm"
+                    >
+                      <Check size={14} className={`mt-0.5 flex-shrink-0 ${plan.highlight ? "text-white" : "text-forest"}`} />
+                      {f}
+                    </motion.li>
+                  ))}
+                  {plan.notIncluded.map((f) => (
+                    <li key={f} className={`flex items-start gap-3 text-sm ${plan.highlight ? "text-white/40" : "text-gray-300"}`}>
+                      <span className="w-3.5 h-px mt-2 flex-shrink-0 bg-current" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  to={plan.to}
+                  className={`${plan.highlight ? "btn-ghost" : "btn-outline"} w-full text-center rounded-xl`}
+                >
+                  {plan.cta}
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-sand py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <p className="text-xs tracking-widest uppercase text-gray-400 mb-3">FAQs</p>
+            <h2 className="font-display text-4xl">Common questions</h2>
+          </motion.div>
+
+          <div className="space-y-2">
+            {faqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-white rounded-2xl overflow-hidden"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between px-6 py-5 text-left"
+                >
+                  <span className="font-medium text-sm">{faq.q}</span>
+                  <ChevronDown
+                    size={16}
+                    className={`flex-shrink-0 text-forest transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {openFaq === i && (
+                    <motion.div
+                      initial={{ height: 0 }}
+                      animate={{ height: "auto" }}
+                      exit={{ height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-5 text-sm text-gray-600 leading-relaxed">{faq.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-forest text-white py-20 text-center">
+        <h2 className="font-display text-4xl mb-4">Still not sure?</h2>
+        <p className="text-white/70 mb-8 max-w-md mx-auto">Try a single drop-in class first. No commitment, no pressure.</p>
+        <Link to="/book" className="btn-ghost">Book a Drop-In Class</Link>
+      </section>
+    </>
+  );
+}

@@ -1,0 +1,38 @@
+{
+  "name": "xen-gym",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "remix vite:build",
+    "dev": "remix vite:dev",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "remix-serve ./build/server/index.js",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@remix-run/node": "^2.15.0",
+    "@remix-run/react": "^2.15.0",
+    "@remix-run/serve": "^2.15.0",
+    "@shopify/hydrogen-react": "^2025.1.0",
+    "framer-motion": "^11.0.0",
+    "graphql": "^16.8.1",
+    "graphql-request": "^6.1.0",
+    "isbot": "^4.1.0",
+    "lucide-react": "^0.469.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.15.0",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.1.0",
+    "vite": "^5.1.0",
+    "vite-tsconfig-paths": "^4.3.1"
+  }
+}
