@@ -128,7 +128,7 @@ export default function FaqPage() {
       <section className="relative h-56 sm:h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div className="relative z-10 text-center text-white px-4">
           <p className="text-xs tracking-widest uppercase text-white/60 mb-3">XEN Studio</p>
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl">FAQs</h1>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl">Got Questions?</h1>
         </div>
       </section>
 

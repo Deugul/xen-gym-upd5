@@ -11,12 +11,12 @@ function IconInstagram({ size = 20, className = "" }: { size?: number; className
 }
 
 const photos = [
-  "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80",
-  "https://images.unsplash.com/photo-1534438327-a029bc926dea?w=400&q=80",
-  "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=400&q=80",
-  "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&q=80",
-  "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=400&q=80",
-  "https://images.unsplash.com/photo-1507398941214-572c25f4b1dc?w=400&q=80",
+  "/insta-1.jpg",
+  "/insta-2.jpg",
+  "/insta-3.jpg",
+  "/insta-4.jpg",
+  "/insta-5.jpg",
+  "/insta-6.jpg",
 ];
 
 export function InstagramGrid() {

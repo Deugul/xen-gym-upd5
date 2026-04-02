@@ -89,7 +89,7 @@ export default function BookPage() {
       <section className="relative h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1400&q=80')" }}
+          style={{ backgroundImage: "url('/hero-book.jpg')" }}
         />
         <div className="relative z-10 text-center text-white px-4">
           <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Studio</p>

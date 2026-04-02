@@ -153,7 +153,7 @@ export default function MembershipPage() {
       <section className="relative h-72 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80')" }}
+          style={{ backgroundImage: "url('/hero-membership.jpg')" }}
         />
         <div className="relative z-10 text-white px-4 w-full max-w-4xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
@@ -173,8 +173,8 @@ export default function MembershipPage() {
 
 
       {/* Plans */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-6">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-20 sm:pb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {plans.slice(0, 3).map((plan, i) => {
             const Icon = plan.icon;
             return (
@@ -255,7 +255,7 @@ export default function MembershipPage() {
         </div>
 
         {/* Personal / Private row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 md:max-w-2xl md:mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-8 sm:mt-10 md:max-w-2xl md:mx-auto">
           {plans.slice(3).map((plan, i) => {
             const Icon = plan.icon;
             return (

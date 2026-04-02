@@ -10,7 +10,7 @@ const navLinks = [
   { to: "/book", label: "Book a Class" },
   { to: "/shop", label: "Shop" },
   { to: "/membership", label: "Membership" },
-  { to: "/faq", label: "Got Questions?" },
+  { to: "/faq", label: "FAQ" },
 ];
 
 export function Navbar() {

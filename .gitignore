@@ -27,4 +27,13 @@ public/*.png
 !public/cafe-2.jpg
 !public/cafe-3.jpg
 !public/cafe-4.jpg
+!public/hero-book.jpg
+!public/hero-shop.jpg
+!public/hero-membership.jpg
+!public/insta-1.jpg
+!public/insta-2.jpg
+!public/insta-3.jpg
+!public/insta-4.jpg
+!public/insta-5.jpg
+!public/insta-6.jpg
 .vercel
