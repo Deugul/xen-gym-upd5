@@ -11,5 +11,7 @@ node_modules
 *.MP4
 public/Gallery/
 public/*.jpg
-public/*.png
 public/*.jpeg
+public/*.png
+!public/xen-logo.png
+.vercel
