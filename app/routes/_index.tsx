@@ -5,6 +5,7 @@ import { FeatureCards } from "~/components/sections/FeatureCards";
 import { GiftCard } from "~/components/sections/GiftCard";
 import { Testimonials } from "~/components/sections/Testimonials";
 import { InstagramGrid } from "~/components/sections/InstagramGrid";
+import { GymBanner } from "~/components/sections/GymBanner";
 
 export const meta: MetaFunction = () => [
   { title: "XEN Gym — Find Your Ground | Halifax, West Yorkshire" },
@@ -19,6 +20,7 @@ export default function Index() {
       <FeatureCards />
       <GiftCard />
       <Testimonials />
+      <GymBanner />
       <InstagramGrid />
     </>
   );

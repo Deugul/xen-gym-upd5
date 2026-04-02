@@ -40,15 +40,13 @@ export function GiftCard() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="flex justify-center"
           >
-            <div className="relative w-72 h-44 rounded-sm bg-gradient-to-br from-forest-700 to-forest border border-white/20 shadow-2xl flex flex-col justify-between p-6">
-              <div>
-                <div className="font-display font-bold text-2xl tracking-tighter">XEN</div>
-                <div className="font-body text-xs tracking-[0.3em] text-white/60 uppercase">GYM</div>
-              </div>
-              <div>
-                <p className="text-xs tracking-widest uppercase text-white/50 mb-1">Gift Card</p>
-                <div className="w-10 h-px bg-white/30" />
-              </div>
+            <div className="relative w-full max-w-sm aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src="/hero.jpg"
+                alt="XEN Gym interior"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/20" />
             </div>
           </motion.div>
         </div>
