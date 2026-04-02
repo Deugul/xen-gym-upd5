@@ -224,7 +224,7 @@ export default function BookPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.93, y: 24 }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md bg-cream p-8 shadow-2xl rounded-3xl"
+              className="fixed inset-x-3 bottom-3 z-50 max-h-[88vh] overflow-y-auto bg-cream p-6 shadow-2xl rounded-3xl sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-md sm:p-8"
             >
               {booked ? (
                 <div className="text-center py-8">

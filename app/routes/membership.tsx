@@ -155,19 +155,19 @@ export default function MembershipPage() {
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80')" }}
         />
-        <div className="relative z-10 text-center text-white px-4 w-full max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="font-display text-5xl md:text-6xl">Memberships</h1>
+        <div className="relative z-10 text-white px-4 w-full max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl">Memberships</h1>
             <a
               href="https://momence.com/sign-in?hostId=230727"
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-white/60 text-white text-sm font-medium tracking-wide px-5 py-2.5 rounded-xl hover:bg-white hover:text-forest transition-all duration-200 whitespace-nowrap"
+              className="self-start sm:self-auto border border-white/60 text-white text-xs sm:text-sm font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl hover:bg-white hover:text-forest transition-all duration-200 whitespace-nowrap"
             >
               Member Login
             </a>
           </div>
-          <p className="text-white/70 text-left max-w-lg">Choose a plan that fits your lifestyle. All classes, all levels.</p>
+          <p className="text-white/70 max-w-lg text-sm sm:text-base">Choose a plan that fits your lifestyle. All classes, all levels.</p>
         </div>
       </section>
 

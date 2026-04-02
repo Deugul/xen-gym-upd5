@@ -6,7 +6,7 @@ export function Logo({ className = "" }: { className?: string }) {
       <img
         src="/xen-logo.png"
         alt="XEN"
-        className="h-16 w-auto object-contain"
+        className="h-10 sm:h-12 lg:h-14 w-auto object-contain"
       />
     </Link>
   );

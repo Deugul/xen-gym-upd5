@@ -14,10 +14,12 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-cream font-body text-gray-900 antialiased;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4 {

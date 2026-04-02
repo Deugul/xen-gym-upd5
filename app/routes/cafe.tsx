@@ -79,7 +79,7 @@ export default function CafePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-6xl md:text-7xl mb-6"
+            className="font-display text-4xl sm:text-5xl md:text-7xl mb-6"
           >
             Cafe
           </motion.h1>
