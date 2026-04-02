@@ -16,4 +16,9 @@ public/*.png
 !public/xen-logo.png
 !public/gym-gift.jpg
 !public/gym-banner.jpg
+!public/hex-shop.jpg
+!public/hex-book.jpg
+!public/hex-cafe.jpg
+!public/hex-membership.jpg
+!public/hex-gallery.jpg
 .vercel

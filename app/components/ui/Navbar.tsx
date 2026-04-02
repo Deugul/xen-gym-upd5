@@ -7,7 +7,6 @@ import { useCartStore } from "~/store/cart";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About Us" },
   { to: "/book", label: "Book a Class" },
   { to: "/shop", label: "Shop" },
   { to: "/cafe", label: "Cafe" },

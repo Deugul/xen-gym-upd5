@@ -13,7 +13,7 @@ const testimonials = [
   },
   {
     name: "Zakiya Ahmed",
-    text: "I've been to XEN Gym a couple of times now and absolutely loved it and I've got two more classes already lined up! The studio has such a welcoming and positive vibe. The instructors are genuinely kind, supportive, and made me feel comfortable right away — even as a newcomer. Each class was not only a great workout but also a lot of fun.",
+    text: "I've been to XEN Studio a couple of times now and absolutely loved it and I've got two more classes already lined up! The studio has such a welcoming and positive vibe. The instructors are genuinely kind, supportive, and made me feel comfortable right away — even as a newcomer. Each class was not only a great workout but also a lot of fun.",
     stars: 5,
   },
 ];

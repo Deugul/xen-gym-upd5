@@ -2,31 +2,11 @@ import { Link } from "@remix-run/react";
 import { motion } from "framer-motion";
 
 const features = [
-  {
-    label: "Shop",
-    image: "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=700&q=80",
-    to: "/shop",
-  },
-  {
-    label: "Book Classes",
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=700&q=80",
-    to: "/book",
-  },
-  {
-    label: "Cafe",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=80",
-    to: "/cafe",
-  },
-  {
-    label: "Membership",
-    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700&q=80",
-    to: "/membership",
-  },
-  {
-    label: "Gallery",
-    image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=700&q=80",
-    to: "/gallery",
-  },
+  { label: "Shop", image: "/hex-shop.jpg", to: "/shop" },
+  { label: "Book Classes", image: "/hex-book.jpg", to: "/book" },
+  { label: "Cafe", image: "/hex-cafe.jpg", to: "/cafe" },
+  { label: "Membership", image: "/hex-membership.jpg", to: "/membership" },
+  { label: "Gallery", image: "/hex-gallery.jpg", to: "/gallery" },
 ];
 
 export function FeatureCards() {
