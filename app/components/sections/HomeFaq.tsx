@@ -128,25 +128,25 @@ export function HomeFaq() {
           <h2 className="font-display text-4xl sm:text-5xl">We have answers.</h2>
         </motion.div>
 
-        {/* Three columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Stacked sections */}
+        <div className="max-w-3xl mx-auto space-y-20">
           {sections.map((section, si) => (
             <motion.div
               key={section.heading}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: si * 0.1 }}
-              className="bg-white rounded-2xl px-6 py-7 shadow-sm"
+              transition={{ duration: 0.5, delay: si * 0.08 }}
             >
-              {/* Category heading */}
-              <div className="mb-5 pb-4 border-b border-sand">
+              {/* Section heading */}
+              <div className="mb-8">
                 <span className="text-xs tracking-widest uppercase text-gray-400">0{si + 1}</span>
-                <h3 className="font-display text-xl mt-0.5">{section.heading}</h3>
+                <h3 className="font-display text-3xl sm:text-4xl mt-1">{section.heading}</h3>
+                <div className="w-10 h-px bg-forest mt-3" />
               </div>
 
-              {/* Accordion items */}
-              <div>
+              {/* Accordion card */}
+              <div className="bg-white rounded-2xl px-6 sm:px-8 shadow-sm border border-sand/60">
                 {section.faqs.map((faq, fi) => (
                   <AccordionItem key={faq.q} q={faq.q} a={faq.a} index={fi} />
                 ))}
