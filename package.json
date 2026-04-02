@@ -17,7 +17,7 @@
     "@remix-run/serve": "^2.15.0",
     "@shopify/hydrogen-react": "^2025.1.0",
     "@vercel/remix": "^2.16.7",
-    "express": "^5.2.1",
+    "express": "^4.21.2",
     "framer-motion": "^11.0.0",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
