@@ -1,6 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ProductCard, type MockProduct } from "~/components/shop/ProductCard";
 
 export const meta: MetaFunction = () => [
@@ -76,21 +75,6 @@ export default function ShopPage() {
           </div>
         )}
 
-        {/* Shopify note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-20 bg-sand p-8 text-center"
-        >
-          <p className="text-xs tracking-widest uppercase text-gray-500 mb-2">Live Store</p>
-          <p className="font-display text-xl mb-3">Connect Your Shopify Store</p>
-          <p className="text-sm text-gray-500 max-w-md mx-auto">
-            Add your <code className="bg-white px-1.5 py-0.5 text-xs rounded">SHOPIFY_STORE_DOMAIN</code> and{" "}
-            <code className="bg-white px-1.5 py-0.5 text-xs rounded">SHOPIFY_STOREFRONT_API_TOKEN</code> to{" "}
-            <code className="bg-white px-1.5 py-0.5 text-xs rounded">.env</code> to load real products.
-          </p>
-        </motion.div>
       </div>
     </>
   );
