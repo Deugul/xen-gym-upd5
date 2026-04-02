@@ -49,7 +49,7 @@ const plans = [
     ],
     notIncluded: [],
     cta: "Book Now",
-    to: "https://momence.com/sign-in?hostId=230727",
+    to: "https://momence.com/X%C3%A9n-Pilates/membership/4-classes-a-month/710221",
     external: true,
   },
   {
@@ -71,7 +71,7 @@ const plans = [
     ],
     notIncluded: [],
     cta: "Book Now",
-    to: "https://momence.com/sign-in?hostId=230727",
+    to: "https://momence.com/X%C3%A9n-Pilates/membership/8-classes-a-month/710222",
     external: true,
   },
   {
@@ -90,7 +90,7 @@ const plans = [
     ],
     notIncluded: [],
     cta: "Book Now",
-    to: "https://momence.com/sign-in?hostId=230727",
+    to: "https://momence.com/X%C3%A9n-Pilates/membership/1-to-1/710229",
     external: true,
   },
   {
@@ -111,7 +111,7 @@ const plans = [
     ],
     notIncluded: [],
     cta: "Book Now",
-    to: "https://momence.com/sign-in?hostId=230727",
+    to: "https://momence.com/X%C3%A9n-Pilates/membership/Book-the-studio-for-a-private-session-for-you-and-your-girls-(up-to-6)/710230",
     external: true,
   },
 ];
