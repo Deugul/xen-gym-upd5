@@ -13,7 +13,7 @@ const plans = [
   {
     id: "drop-in",
     icon: Zap,
-    name: "Drop-In",
+    name: "1 off single class",
     tagline: "Try before you commit",
     price: { monthly: "18", annual: "18" },
     unit: "per class",
@@ -21,63 +21,58 @@ const plans = [
     features: [
       "Access to any single class",
       "All class types included",
-      "Cafe discount (10%)",
       "No commitment required",
       "Towel hire available",
     ],
     notIncluded: [
       "Priority booking",
       "Guest passes",
-      "Unlimited classes",
     ],
-    cta: "Book a Class",
-    to: "/book",
+    cta: "Book Now",
+    to: "https://momence.com/sign-in?hostId=230727",
+    external: true,
   },
   {
-    id: "monthly",
+    id: "monthly-4",
     icon: Star,
-    name: "Monthly",
-    tagline: "Most flexible",
-    price: { monthly: "79", annual: "69" },
+    name: "4 classes a month",
+    tagline: "Most popular",
+    price: { monthly: "60", annual: "55" },
     unit: "per month",
     highlight: true,
     features: [
-      "Unlimited classes",
+      "4 classes per month",
       "All class types included",
-      "Priority booking (24hr early)",
-      "Cafe discount (15%)",
-      "1 guest pass per month",
+      "Priority booking",
+      "Rollover 1 class per month",
       "Cancel anytime",
-      "Free towel service",
-    ],
-    notIncluded: [
-      "Annual saving",
-    ],
-    cta: "Join Monthly",
-    to: "/join?plan=monthly",
-  },
-  {
-    id: "annual",
-    icon: Crown,
-    name: "Annual",
-    tagline: "Best value",
-    price: { monthly: "828", annual: "59" },
-    unit: "per month",
-    highlight: false,
-    badge: "Save £240/yr",
-    features: [
-      "Unlimited classes",
-      "All class types included",
-      "Priority booking (48hr early)",
-      "Cafe discount (20%)",
-      "2 guest passes per month",
-      "Free towel service",
-      "Free nutrition consultation",
-      "Exclusive member events",
     ],
     notIncluded: [],
-    cta: "Join Annual",
-    to: "/join?plan=annual",
+    cta: "Book Now",
+    to: "https://momence.com/sign-in?hostId=230727",
+    external: true,
+  },
+  {
+    id: "monthly-8",
+    icon: Crown,
+    name: "8 classes a month",
+    tagline: "Best value",
+    price: { monthly: "110", annual: "99" },
+    unit: "per month",
+    highlight: false,
+    badge: "Best Value",
+    features: [
+      "8 classes per month",
+      "All class types included",
+      "Priority booking",
+      "Rollover 2 classes per month",
+      "Cafe discount (10%)",
+      "Cancel anytime",
+    ],
+    notIncluded: [],
+    cta: "Book Now",
+    to: "https://momence.com/sign-in?hostId=230727",
+    external: true,
   },
 ];
 
@@ -120,10 +115,19 @@ export default function MembershipPage() {
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80')" }}
         />
-        <div className="relative z-10 text-center text-white px-4">
-          <p className="text-xs tracking-widest uppercase text-white/60 mb-3">XEN Gym</p>
-          <h1 className="font-display text-5xl md:text-6xl mb-4">Join XEN</h1>
-          <p className="text-white/70 max-w-md mx-auto">Unlimited movement. Your way.</p>
+        <div className="relative z-10 text-center text-white px-4 w-full max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="font-display text-5xl md:text-6xl">Memberships</h1>
+            <a
+              href="https://momence.com/sign-in?hostId=230727"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-white/60 text-white text-sm font-medium tracking-wide px-5 py-2.5 rounded-xl hover:bg-white hover:text-forest transition-all duration-200 whitespace-nowrap"
+            >
+              Member Login
+            </a>
+          </div>
+          <p className="text-white/70 text-left max-w-lg">Choose a plan that fits your lifestyle. All classes, all levels.</p>
         </div>
       </section>
 
@@ -214,12 +218,23 @@ export default function MembershipPage() {
                   ))}
                 </ul>
 
-                <Link
-                  to={plan.to}
-                  className={`${plan.highlight ? "btn-ghost" : "btn-outline"} w-full text-center rounded-xl`}
-                >
-                  {plan.cta}
-                </Link>
+                {(plan as { external?: boolean }).external ? (
+                  <a
+                    href={plan.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${plan.highlight ? "btn-ghost" : "btn-outline"} w-full text-center rounded-xl`}
+                  >
+                    {plan.cta}
+                  </a>
+                ) : (
+                  <Link
+                    to={plan.to}
+                    className={`${plan.highlight ? "btn-ghost" : "btn-outline"} w-full text-center rounded-xl`}
+                  >
+                    {plan.cta}
+                  </Link>
+                )}
               </motion.div>
             );
           })}
