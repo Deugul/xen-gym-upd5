@@ -89,7 +89,7 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left gap-4 group"
       >
-        <span className="font-medium text-sm sm:text-base text-gray-900 group-hover:text-forest transition-colors duration-200">
+        <span className="font-medium text-sm sm:text-base text-white group-hover:text-forest transition-colors duration-200">
           {q}
         </span>
         <motion.div
@@ -111,7 +111,7 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-sm text-gray-600 leading-relaxed max-w-2xl">
+            <p className="pb-5 text-sm text-white/60 leading-relaxed max-w-2xl">
               {a}
             </p>
           </motion.div>
@@ -125,7 +125,7 @@ export default function FaqPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-56 sm:h-64 flex items-center justify-center bg-forest overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+      <section className="relative h-56 sm:h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div className="relative z-10 text-center text-white px-4">
           <p className="text-xs tracking-widest uppercase text-white/60 mb-3">XEN Studio</p>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl">FAQs</h1>
@@ -144,13 +144,13 @@ export default function FaqPage() {
           >
             {/* Section heading */}
             <div className="mb-8">
-              <span className="text-xs tracking-widest uppercase text-gray-400">0{si + 1}</span>
+              <span className="text-xs tracking-widest uppercase text-white/40">0{si + 1}</span>
               <h2 className="font-display text-3xl sm:text-4xl mt-1">{section.heading}</h2>
               <div className="w-10 h-px bg-forest mt-3" />
             </div>
 
             {/* Accordion */}
-            <div className="bg-white rounded-2xl px-6 sm:px-8 shadow-sm border border-sand">
+            <div className="bg-cream-200 rounded-2xl px-6 sm:px-8 border border-white/5">
               {section.faqs.map((faq, fi) => (
                 <AccordionItem key={faq.q} q={faq.q} a={faq.a} index={fi} />
               ))}
@@ -160,7 +160,7 @@ export default function FaqPage() {
       </div>
 
       {/* CTA */}
-      <section className="bg-forest text-white py-16 text-center">
+      <section className="bg-cream py-16 text-center">
         <h2 className="font-display text-3xl sm:text-4xl mb-4">Ready to start?</h2>
         <p className="text-white/70 mb-8 max-w-md mx-auto text-sm">Book your first class today — no experience needed.</p>
         <a

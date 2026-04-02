@@ -39,7 +39,7 @@ export function Testimonials() {
         viewport={{ once: true }}
         className="text-center mb-14"
       >
-        <p className="text-xs tracking-widest uppercase text-gray-500 mb-3">Reviews</p>
+        <p className="text-xs tracking-widest uppercase text-white/50 mb-3">Reviews</p>
         <h2 className="font-display text-4xl">Real results. Real voices.</h2>
       </motion.div>
 
@@ -54,7 +54,7 @@ export function Testimonials() {
             className="bg-sand p-8 rounded-2xl"
           >
             <p className="font-display text-base font-medium mb-4">— {t.name}</p>
-            <p className="text-sm text-gray-600 leading-relaxed mb-6">{t.text}</p>
+            <p className="text-sm text-white/60 leading-relaxed mb-6">{t.text}</p>
             <Stars count={t.stars} />
           </motion.div>
         ))}

@@ -6,19 +6,24 @@
 
 @layer base {
   :root {
-    --color-cream: #F5F0E8;
-    --color-forest: #2D4A3E;
-    --color-sand: #E8E0D0;
-    --color-bark: #8B7355;
+    --color-cream: #0A0A0A;
+    --color-forest: #C4963A;
+    --color-sand: #0A0A0A;
+    --color-bark: #7C5C10;
+    --color-text-primary: #F5EDD8;
+    --color-text-muted: #C4AA80;
   }
 
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    background-color: #0A0A0A;
   }
 
   body {
-    @apply bg-cream font-body text-gray-900 antialiased;
+    @apply font-body antialiased;
+    background-color: #0A0A0A;
+    color: #F5EDD8;
     overflow-x: hidden;
   }
 
@@ -29,39 +34,68 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-3 bg-forest text-white text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 hover:bg-forest-700 focus:outline-none focus:ring-2 focus:ring-forest focus:ring-offset-2;
+    @apply inline-flex items-center justify-center px-8 py-3 bg-forest text-black text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 hover:bg-forest-700 focus:outline-none focus:ring-2 focus:ring-forest focus:ring-offset-2;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center px-8 py-3 border border-forest text-forest text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 hover:bg-forest hover:text-white focus:outline-none;
+    @apply inline-flex items-center justify-center px-8 py-3 border border-forest text-forest text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 hover:bg-forest hover:text-black focus:outline-none;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center px-8 py-3 border border-white text-white text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 hover:bg-white hover:text-forest focus:outline-none;
+    @apply inline-flex items-center justify-center px-8 py-3 border text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 focus:outline-none;
+    border-color: #C4963A;
+    color: #C4963A;
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    background-color: #C4963A;
+    color: #0A0A0A;
   }
 
   .section-heading {
-    @apply font-display text-4xl md:text-5xl text-gray-900 leading-tight;
+    @apply font-display text-4xl md:text-5xl text-white leading-tight;
   }
 
   .announcement-bar {
-    @apply w-full bg-forest text-white text-xs tracking-widest uppercase text-center py-2.5 px-4;
+    @apply w-full bg-forest text-black text-xs tracking-widest uppercase text-center py-2.5 px-4;
   }
 
   .nav-link {
-    @apply text-sm font-medium tracking-wide text-gray-700 hover:text-forest transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-forest after:transition-all after:duration-300 hover:after:w-full;
+    @apply text-sm font-medium tracking-wide transition-all duration-200 relative;
+    color: #C4AA80;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #C4963A;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover {
+    color: #C4963A;
+    text-shadow: 0 0 8px rgba(196, 150, 58, 0.65), 0 0 20px rgba(196, 150, 58, 0.25);
+  }
+  .nav-link:hover::after {
+    width: 100%;
   }
 
   .nav-link-active {
-    @apply text-forest after:w-full;
+    color: #C4963A !important;
+    text-shadow: 0 0 8px rgba(196, 150, 58, 0.5), 0 0 18px rgba(196, 150, 58, 0.2);
+  }
+  .nav-link-active::after {
+    width: 100%;
   }
 
   .card {
-    @apply bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply bg-cream-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
 
   .input {
-    @apply w-full border border-sand bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 rounded-xl focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest transition-colors;
+    @apply w-full border border-sand bg-cream-200 px-4 py-3 text-sm text-white placeholder:text-white/30 rounded-xl focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest transition-colors;
   }
 
   .badge {
@@ -69,12 +103,55 @@
   }
 }
 
+/* Force warm dark backgrounds — override any stale Tailwind token cache */
+.bg-cream,
+.bg-sand,
+[class*="bg-cream"],
+[class*="bg-sand"] {
+  background-color: #0A0A0A;
+}
+.bg-cream-200,
+[class*="bg-cream-200"] {
+  background-color: #161616;
+}
+
+/* Force gold accent — override stale forest token */
+.bg-forest { background-color: #C4963A !important; }
+.text-forest { color: #C4963A !important; }
+.border-forest { border-color: #C4963A !important; }
+.hover\:bg-forest:hover { background-color: #C4963A !important; }
+.hover\:text-forest:hover {
+  color: #C4963A !important;
+  text-shadow: 0 0 8px rgba(196, 150, 58, 0.65), 0 0 20px rgba(196, 150, 58, 0.25) !important;
+}
+.hover\:border-forest:hover { border-color: #C4963A !important; }
+.fill-forest { fill: #C4963A !important; }
+.after\:bg-forest::after { background-color: #C4963A !important; }
+.bg-forest-700 { background-color: #9B7220 !important; }
+.hover\:bg-forest-700:hover { background-color: #9B7220 !important; }
+.focus\:ring-forest:focus { --tw-ring-color: #C4963A !important; }
+.focus\:border-forest:focus { border-color: #C4963A !important; }
+
+/* Universal gold glow — any element transitioning to gold on hover */
+a:hover .text-forest,
+button:hover .text-forest,
+.group:hover .group-hover\:text-forest {
+  color: #C4963A !important;
+  text-shadow: 0 0 8px rgba(196, 150, 58, 0.65), 0 0 20px rgba(196, 150, 58, 0.25);
+}
+
+/* Announcement bar explicit override */
+.announcement-bar {
+  background-color: #C4963A !important;
+  color: #0C0700 !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-cream);
+  background: #161616;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-forest);

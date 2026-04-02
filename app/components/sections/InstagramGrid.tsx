@@ -25,7 +25,7 @@ export function InstagramGrid() {
             href="https://instagram.com/xengym"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-body text-lg font-medium tracking-wider hover:text-forest transition-colors"
+            className="font-body text-lg font-medium tracking-wider text-white/80 hover:text-forest transition-colors"
           >
             @xengym
           </a>

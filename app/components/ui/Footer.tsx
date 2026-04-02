@@ -1,9 +1,35 @@
 import { Link } from "@remix-run/react";
-import { Instagram, Facebook, Youtube } from "lucide-react";
+
+function IconInstagram({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function IconFacebook({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
+function IconYoutube({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 export function Footer() {
   return (
-    <footer className="bg-forest text-white">
+    <footer className="bg-cream">
       {/* Newsletter */}
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
@@ -19,7 +45,7 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="px-8 py-3 bg-white text-forest text-sm font-medium tracking-widest uppercase rounded-xl hover:bg-cream transition-colors"
+              className="px-8 py-3 bg-white text-forest text-sm font-medium tracking-widest uppercase rounded-xl hover:bg-gray-100 transition-colors"
             >
               Sign up
             </button>
@@ -29,26 +55,26 @@ export function Footer() {
 
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="font-display font-bold text-2xl tracking-tighter mb-1">XEN</div>
-            <div className="font-body font-medium tracking-[0.3em] text-white/60 uppercase text-xs mb-4">GYM</div>
+            <div className="font-body font-medium tracking-[0.3em] text-white/60 uppercase text-xs mb-4">Studio</div>
             <address className="not-italic text-white/70 text-sm leading-relaxed">
-              XEN Studio Studio<br />
+              XEN Studio<br />
               Broadway Retail Park<br />
               50 Queens Rd<br />
               Halifax HX1 3BJ
             </address>
             <div className="flex gap-4 mt-6">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Instagram">
-                <Instagram size={18} />
+                <IconInstagram size={18} />
               </a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Facebook">
-                <Facebook size={18} />
+                <IconFacebook size={18} />
               </a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="YouTube">
-                <Youtube size={18} />
+                <IconYoutube size={18} />
               </a>
             </div>
           </div>
@@ -60,29 +86,9 @@ export function Footer() {
               {[
                 { to: "/book", label: "Book a Class" },
                 { to: "/shop", label: "Shop" },
-                { to: "/cafe", label: "Cafe" },
                 { to: "/membership", label: "Membership" },
-                { to: "/about", label: "About Us" },
-              ].map((link) => (
-                <li key={link.to}>
-                  <Link to={link.to} className="text-sm text-white/70 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Studio */}
-          <div>
-            <h4 className="text-xs font-medium tracking-widest uppercase text-white/50 mb-4">Studio</h4>
-            <ul className="space-y-2">
-              {[
-                { to: "/classes", label: "All Classes" },
-                { to: "/instructors", label: "Instructors" },
+                { to: "/faq", label: "FAQ" },
                 { to: "/shop/gift-cards", label: "Gift Cards" },
-                { to: "/faqs", label: "FAQs" },
-                { to: "/contact", label: "Contact" },
               ].map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className="text-sm text-white/70 hover:text-white transition-colors">

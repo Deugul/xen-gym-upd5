@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 const features = [
   { label: "Shop", image: "/hex-shop.jpg", to: "/shop" },
   { label: "Book Classes", image: "/hex-book.jpg", to: "/book" },
-  { label: "Cafe", image: "/hex-cafe.jpg", to: "/cafe" },
   { label: "Membership", image: "/hex-membership.jpg", to: "/membership" },
   { label: "Gallery", image: "/hex-gallery.jpg", to: "/gallery" },
 ];
@@ -20,7 +19,7 @@ export function FeatureCards() {
         viewport={{ once: true }}
         className="text-center mb-10 md:mb-14 px-4"
       >
-        <p className="text-xs tracking-widest uppercase text-gray-400 mb-2">Explore</p>
+        <p className="text-xs tracking-widest uppercase text-white/40 mb-2">Explore</p>
         <h2 className="font-display text-3xl sm:text-4xl">Everything XEN</h2>
       </motion.div>
 
@@ -33,7 +32,6 @@ export function FeatureCards() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: i * 0.07 }}
-            className={i === 4 ? "col-span-2" : ""}
           >
             <Link
               to={f.to}
@@ -56,20 +54,11 @@ export function FeatureCards() {
         ))}
       </div>
 
-      {/* Desktop: hexagon honeycomb */}
-      <div className="hidden md:flex flex-col items-center gap-0 select-none">
-        {/* Row 1 — 3 hexagons */}
-        <div className="flex justify-center gap-4">
-          {features.slice(0, 3).map((f, i) => (
-            <HexCard key={f.label} feature={f} index={i} hexClip={hexClip} />
-          ))}
-        </div>
-        {/* Row 2 — 2 hexagons, offset */}
-        <div className="flex justify-center gap-4" style={{ marginTop: "-52px" }}>
-          {features.slice(3, 5).map((f, i) => (
-            <HexCard key={f.label} feature={f} index={i + 3} hexClip={hexClip} />
-          ))}
-        </div>
+      {/* Desktop: single row of 4 hexagons */}
+      <div className="hidden md:flex justify-center gap-4 select-none">
+        {features.map((f, i) => (
+          <HexCard key={f.label} feature={f} index={i} hexClip={hexClip} />
+        ))}
       </div>
     </section>
   );

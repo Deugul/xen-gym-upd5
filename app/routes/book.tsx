@@ -86,7 +86,7 @@ export default function BookPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-64 flex items-center justify-center bg-forest overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+      <section className="relative h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1400&q=80')" }}
@@ -106,8 +106,8 @@ export default function BookPage() {
               onClick={() => setActiveFilter(type)}
               className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
                 activeFilter === type
-                  ? "bg-forest text-white border-forest"
-                  : "bg-white text-gray-600 border-sand hover:border-forest hover:text-forest"
+                  ? "bg-forest text-black border-forest"
+                  : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
               }`}
             >
               {type}
@@ -116,13 +116,13 @@ export default function BookPage() {
         </div>
 
         {error && (
-          <p className="text-center text-gray-400 py-16">{error}</p>
+          <p className="text-center text-white/40 py-16">{error}</p>
         )}
 
         {!error && filtered.length === 0 && (
           <div className="text-center py-20 text-gray-400">
             <p className="font-display text-2xl mb-2">No upcoming classes</p>
-            <p className="text-sm">Check back soon</p>
+            <p className="text-sm text-white/40">Check back soon</p>
           </div>
         )}
 
@@ -142,7 +142,7 @@ export default function BookPage() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.35, delay: i * 0.05 }}
-                        className="bg-white border border-sand rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-forest/30 hover:shadow-sm transition-all duration-200"
+                        className="bg-cream-200 border border-white/5 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-forest/30 hover:shadow-sm transition-all duration-200"
                       >
                         {/* Left info */}
                         <div className="flex-1">
@@ -160,7 +160,7 @@ export default function BookPage() {
                             )}
                           </div>
 
-                          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500">
+                          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/50">
                             <span className="flex items-center gap-1.5">
                               <Clock size={13} />
                               {formatTime(cls.dateTime)} · {cls.duration} min
@@ -180,7 +180,7 @@ export default function BookPage() {
 
                         {/* Right — price + CTA */}
                         <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-1">
-                          <span className="font-display text-xl text-gray-900">£{cls.fixedPrice}</span>
+                          <span className="font-display text-xl text-white">£{cls.fixedPrice}</span>
                           {isFull && cls.allowWaitlist ? (
                             <a
                               href={cls.link}
@@ -199,7 +199,7 @@ export default function BookPage() {
                               href={cls.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-forest text-forest hover:bg-forest hover:text-white transition-all duration-200 whitespace-nowrap"
+                              className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200 whitespace-nowrap"
                             >
                               Book Now
                             </a>

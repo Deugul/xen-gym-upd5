@@ -31,7 +31,7 @@ export default function ShopPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-64 flex items-center justify-center bg-forest overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+      <section className="relative h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80')" }}
@@ -51,8 +51,8 @@ export default function ShopPage() {
               onClick={() => setActiveCategory(cat)}
               className={`px-6 py-2 text-xs font-medium tracking-widest uppercase border transition-all duration-200 ${
                 activeCategory === cat
-                  ? "bg-forest text-white border-forest"
-                  : "bg-transparent text-gray-600 border-sand hover:border-forest hover:text-forest"
+                  ? "bg-forest text-black border-forest"
+                  : "bg-transparent text-white/60 border-white/10 hover:border-forest hover:text-forest"
               }`}
             >
               {cat}
@@ -71,7 +71,7 @@ export default function ShopPage() {
         {filtered.length === 0 && (
           <div className="text-center py-20 text-gray-400">
             <p className="font-display text-2xl mb-2">No products found</p>
-            <p className="text-sm">Try selecting a different category</p>
+            <p className="text-sm text-white/40">Try selecting a different category</p>
           </div>
         )}
 

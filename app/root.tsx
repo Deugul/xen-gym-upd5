@@ -19,7 +19,7 @@ export const links: LinksFunction = () => [
 
 export default function App() {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" style={{ backgroundColor: "#0A0A0A" }}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,7 +51,7 @@ export function ErrorBoundary() {
       </head>
       <body className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
-          <h1 className="font-display text-4xl text-forest mb-4">Something went wrong</h1>
+          <h1 className="font-display text-4xl text-white mb-4">Something went wrong</h1>
           <a href="/" className="btn-primary">Return Home</a>
         </div>
         <Scripts />

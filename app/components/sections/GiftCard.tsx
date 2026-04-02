@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export function GiftCard() {
   return (
-    <section className="relative overflow-hidden bg-forest text-white rounded-3xl mx-2 my-2">
+    <section className="relative overflow-hidden bg-cream rounded-3xl mx-2 my-2">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-20"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80')" }}

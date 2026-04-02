@@ -39,7 +39,7 @@ export function CartDrawer() {
                 <ShoppingBag size={20} className="text-forest" />
                 <h2 className="font-display text-xl">Your Cart</h2>
                 {cart && cart.totalQuantity > 0 && (
-                  <span className="bg-forest text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="bg-forest text-black text-xs w-5 h-5 rounded-full flex items-center justify-center">
                     {cart.totalQuantity}
                   </span>
                 )}
@@ -57,9 +57,9 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto px-6 py-4">
               {!cart || cart.lines.nodes.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
-                  <ShoppingBag size={48} className="text-sand" />
-                  <p className="font-display text-xl text-gray-500">Your cart is empty</p>
-                  <p className="text-sm text-gray-400">Add some items to get started</p>
+                  <ShoppingBag size={48} className="text-white/20" />
+                  <p className="font-display text-xl text-white/50">Your cart is empty</p>
+                  <p className="text-sm text-white/40">Add some items to get started</p>
                   <button onClick={closeCart} className="btn-outline mt-4">
                     Continue Shopping
                   </button>
@@ -77,7 +77,7 @@ export function CartDrawer() {
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm truncate">{line.merchandise.product.title}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{line.merchandise.title}</p>
+                        <p className="text-xs text-white/50 mt-0.5">{line.merchandise.title}</p>
                         <p className="text-sm font-medium mt-1">
                           {formatPrice(line.merchandise.price.amount, line.merchandise.price.currencyCode)}
                         </p>
@@ -89,7 +89,7 @@ export function CartDrawer() {
                           <button className="w-7 h-7 border border-sand flex items-center justify-center hover:border-forest transition-colors">
                             <Plus size={12} />
                           </button>
-                          <button className="ml-auto text-gray-400 hover:text-red-500 transition-colors">
+                          <button className="ml-auto text-white/40 hover:text-red-400 transition-colors">
                             <Trash2 size={14} />
                           </button>
                         </div>
@@ -104,7 +104,7 @@ export function CartDrawer() {
             {cart && cart.lines.nodes.length > 0 && (
               <div className="border-t border-sand px-6 py-6 space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal</span>
+                  <span className="text-white/60">Subtotal</span>
                   <span className="font-medium">
                     {formatPrice(cart.cost.subtotalAmount.amount, cart.cost.subtotalAmount.currencyCode)}
                   </span>
@@ -121,7 +121,7 @@ export function CartDrawer() {
                 >
                   Checkout
                 </a>
-                <button onClick={closeCart} className="w-full text-center text-sm text-gray-500 hover:text-forest transition-colors">
+                <button onClick={closeCart} className="w-full text-center text-sm text-white/50 hover:text-forest transition-colors">
                   Continue Shopping
                 </button>
               </div>

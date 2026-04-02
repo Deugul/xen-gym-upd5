@@ -9,9 +9,8 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/book", label: "Book a Class" },
   { to: "/shop", label: "Shop" },
-  { to: "/cafe", label: "Cafe" },
   { to: "/membership", label: "Membership" },
-  { to: "/contact", label: "Contact" },
+  { to: "/faq", label: "Got Questions?" },
 ];
 
 export function Navbar() {
@@ -28,11 +27,6 @@ export function Navbar() {
 
   return (
     <>
-      {/* Announcement Bar */}
-      <div className="announcement-bar">
-        Find Your Strength, Find Your Ground.
-      </div>
-
       {/* Main Nav */}
       <header
         className={`sticky top-0 z-30 transition-all duration-300 ${
@@ -62,12 +56,12 @@ export function Navbar() {
 
             {/* Icons */}
             <div className="flex items-center gap-4">
-              <Link to="/account" className="text-gray-700 hover:text-forest transition-colors" aria-label="Account">
+              <Link to="/account" className="text-white/70 hover:text-forest transition-colors" aria-label="Account">
                 <User size={20} />
               </Link>
               <button
                 onClick={openCart}
-                className="relative text-gray-700 hover:text-forest transition-colors"
+                className="relative text-white/70 hover:text-forest transition-colors"
                 aria-label={`Cart (${cartCount} items)`}
               >
                 <ShoppingBag size={20} />
@@ -81,7 +75,7 @@ export function Navbar() {
               {/* Mobile menu toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden text-gray-700 hover:text-forest transition-colors p-1"
+                className="lg:hidden text-white/70 hover:text-forest transition-colors p-1"
                 aria-label="Toggle menu"
               >
                 {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -109,7 +103,7 @@ export function Navbar() {
                     onClick={() => setMobileOpen(false)}
                     className={({ isActive }) =>
                       `py-3 px-2 text-sm font-medium tracking-wide border-b border-sand/50 last:border-0 ${
-                        isActive ? "text-forest" : "text-gray-700"
+                        isActive ? "text-forest" : "text-white/70"
                       }`
                     }
                   >

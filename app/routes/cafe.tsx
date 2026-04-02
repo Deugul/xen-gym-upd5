@@ -98,7 +98,7 @@ export default function CafePage() {
       <section className="bg-sand py-16 text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="font-display text-3xl mb-4">Made for movers</h2>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-white/60 leading-relaxed">
             Every item on our menu is crafted to support your performance and recovery.
             From post-class protein bowls to pre-workout smoothies and specialty coffee —
             everything is made fresh, with ingredients you can feel good about.
@@ -118,8 +118,8 @@ export default function CafePage() {
                 onClick={() => setActiveTab(cat)}
                 className={`flex items-center gap-2 px-6 py-3 text-sm font-medium tracking-wide border transition-all duration-200 ${
                   activeTab === cat
-                    ? "bg-forest text-white border-forest"
-                    : "bg-transparent text-gray-600 border-sand hover:border-forest hover:text-forest"
+                    ? "bg-forest text-black border-forest"
+                    : "bg-transparent text-white/60 border-white/10 hover:border-forest hover:text-forest"
                 }`}
               >
                 <TabIcon size={14} />
@@ -143,11 +143,11 @@ export default function CafePage() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.06 }}
-              className="flex items-start justify-between gap-6 p-6 bg-sand hover:bg-cream-200 transition-colors"
+              className="flex items-start justify-between gap-6 p-6 bg-cream-100 hover:bg-cream-200 transition-colors"
             >
               <div className="flex-1">
                 <h3 className="font-medium text-base mb-1">{item.name}</h3>
-                <p className="text-sm text-gray-500">{item.description}</p>
+                <p className="text-sm text-white/50">{item.description}</p>
               </div>
               <span className="font-display text-lg text-forest whitespace-nowrap">£{item.price}</span>
             </motion.div>
@@ -175,7 +175,7 @@ export default function CafePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-forest text-white py-20 text-center">
+      <section className="bg-cream py-20 text-center">
         <h2 className="font-display text-4xl mb-4">Visit us today</h2>
         <p className="text-white/70 mb-8">Open to members and non-members. No booking required for the cafe.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

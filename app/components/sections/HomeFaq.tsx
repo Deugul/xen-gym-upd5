@@ -83,7 +83,7 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-4 text-left gap-4 group"
       >
-        <span className="font-medium text-sm text-gray-900 group-hover:text-forest transition-colors duration-200">
+        <span className="font-medium text-sm text-white group-hover:text-forest transition-colors duration-200">
           {q}
         </span>
         <motion.div
@@ -105,7 +105,7 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
             transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-sm text-gray-500 leading-relaxed">{a}</p>
+            <p className="pb-4 text-sm text-white/50 leading-relaxed">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -124,7 +124,7 @@ export function HomeFaq() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-xs tracking-widest uppercase text-gray-400 mb-3">Got questions?</p>
+          <p className="text-xs tracking-widest uppercase text-white/40 mb-3">Got questions?</p>
           <h2 className="font-display text-4xl sm:text-5xl">We have answers.</h2>
         </motion.div>
 
@@ -140,13 +140,13 @@ export function HomeFaq() {
             >
               {/* Section heading */}
               <div className="mb-8">
-                <span className="text-xs tracking-widest uppercase text-gray-400">0{si + 1}</span>
+                <span className="text-xs tracking-widest uppercase text-white/40">0{si + 1}</span>
                 <h3 className="font-display text-3xl sm:text-4xl mt-1">{section.heading}</h3>
                 <div className="w-10 h-px bg-forest mt-3" />
               </div>
 
               {/* Accordion card */}
-              <div className="bg-white rounded-2xl px-6 sm:px-8 shadow-sm border border-sand/60">
+              <div className="bg-cream-200 rounded-2xl px-6 sm:px-8 border border-white/5">
                 {section.faqs.map((faq, fi) => (
                   <AccordionItem key={faq.q} q={faq.q} a={faq.a} index={fi} />
                 ))}

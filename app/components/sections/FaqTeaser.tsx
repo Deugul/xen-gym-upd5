@@ -20,11 +20,11 @@ export function FaqTeaser() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-xs tracking-widest uppercase text-gray-400 mb-3">Got questions?</p>
+          <p className="text-xs tracking-widest uppercase text-white/40 mb-3">Got questions?</p>
           <h2 className="font-display text-4xl sm:text-5xl leading-tight mb-6">
             We have answers.
           </h2>
-          <p className="text-gray-500 text-sm leading-relaxed mb-8">
+          <p className="text-white/50 text-sm leading-relaxed mb-8">
             From your first class to memberships and studio info — everything you need to know before you arrive.
           </p>
           <Link
@@ -54,14 +54,14 @@ export function FaqTeaser() {
             >
               <Link
                 to="/faq"
-                className="group flex items-center justify-between bg-white border border-sand hover:border-forest/40 hover:shadow-sm rounded-2xl px-5 py-4 transition-all duration-200"
+                className="group flex items-center justify-between bg-cream-200 border border-white/5 hover:border-forest/40 rounded-2xl px-5 py-4 transition-all duration-200"
               >
-                <span className="text-sm font-medium text-gray-800 group-hover:text-forest transition-colors duration-200">
+                <span className="text-sm font-medium text-white group-hover:text-forest transition-colors duration-200">
                   {q}
                 </span>
                 <ChevronRight
                   size={15}
-                  className="flex-shrink-0 text-gray-300 group-hover:text-forest transition-colors duration-200"
+                  className="flex-shrink-0 text-white/30 group-hover:text-forest transition-colors duration-200"
                 />
               </Link>
             </motion.div>

@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
+// billing toggle removed — prices shown at monthly rate
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Zap, Star, Crown, Users, Lock } from "lucide-react";
 import { Link } from "@remix-run/react";
@@ -144,13 +145,12 @@ const faqs = [
 ];
 
 export default function MembershipPage() {
-  const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <>
       {/* Hero */}
-      <section className="relative h-72 flex items-center justify-center bg-forest overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+      <section className="relative h-72 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80')" }}
@@ -171,26 +171,6 @@ export default function MembershipPage() {
         </div>
       </section>
 
-      {/* Billing toggle */}
-      <section className="py-16 text-center bg-sand">
-        <p className="text-sm text-gray-500 mb-5">Choose your billing</p>
-        <div className="inline-flex items-center border border-sand bg-white p-1 rounded-2xl">
-          {(["monthly", "annual"] as const).map((b) => (
-            <button
-              key={b}
-              onClick={() => setBilling(b)}
-              className={`px-8 py-2.5 text-sm font-medium tracking-wide capitalize transition-all duration-300 rounded-xl ${
-                billing === b ? "bg-forest text-white shadow-md" : "text-gray-500 hover:text-forest"
-              }`}
-            >
-              {b}
-              {b === "annual" && (
-                <span className="ml-2 text-xs bg-bark text-white px-1.5 py-0.5 rounded-md">Save 25%</span>
-              )}
-            </button>
-          ))}
-        </div>
-      </section>
 
       {/* Plans */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
@@ -207,8 +187,8 @@ export default function MembershipPage() {
                 whileHover={{ y: plan.highlight ? -6 : -4, transition: { duration: 0.25 } }}
                 className={`relative flex flex-col p-8 rounded-3xl ${
                   plan.highlight
-                    ? "bg-forest text-white shadow-2xl z-10"
-                    : "bg-white border border-sand shadow-sm hover:shadow-lg transition-shadow duration-300"
+                    ? "bg-forest text-black shadow-2xl z-10"
+                    : "bg-cream-200 border border-white/5 shadow-sm hover:shadow-lg transition-shadow duration-300"
                 }`}
               >
                 {plan.badge && (
@@ -216,24 +196,18 @@ export default function MembershipPage() {
                     {plan.badge}
                   </span>
                 )}
-                <div className={`w-11 h-11 flex items-center justify-center mb-5 rounded-xl ${plan.highlight ? "bg-white/20" : "bg-sand"}`}>
-                  <Icon size={18} className={plan.highlight ? "text-white" : "text-forest"} />
+                <div className={`w-11 h-11 flex items-center justify-center mb-5 rounded-xl ${plan.highlight ? "bg-black/20" : "bg-cream-100"}`}>
+                  <Icon size={18} className={plan.highlight ? "text-black" : "text-forest"} />
                 </div>
-                <p className={`text-xs tracking-widest uppercase mb-1 ${plan.highlight ? "text-white/60" : "text-gray-400"}`}>
+                <p className={`text-xs tracking-widest uppercase mb-1 ${plan.highlight ? "text-black/60" : "text-white/40"}`}>
                   {plan.tagline}
                 </p>
                 <h2 className="font-display text-2xl mb-4">{plan.name}</h2>
                 <div className="mb-8">
-                  <motion.span
-                    key={`${plan.id}-${billing}`}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="font-display text-5xl inline-block"
-                  >
-                    £{billing === "annual" && plan.id !== "drop-in" ? plan.price.annual : plan.price.monthly}
-                  </motion.span>
-                  <span className={`text-sm ml-1 ${plan.highlight ? "text-white/70" : "text-gray-400"}`}>/{plan.unit}</span>
+                  <span className="font-display text-5xl inline-block">
+                    £{plan.price.monthly}
+                  </span>
+                  <span className={`text-sm ml-1 ${plan.highlight ? "text-black/70" : "text-white/40"}`}>/{plan.unit}</span>
                 </div>
 
                 <ul className="space-y-3 flex-1 mb-8">
@@ -246,12 +220,12 @@ export default function MembershipPage() {
                       transition={{ delay: i * 0.1 + fi * 0.04 }}
                       className="flex items-start gap-3 text-sm"
                     >
-                      <Check size={14} className={`mt-0.5 flex-shrink-0 ${plan.highlight ? "text-white" : "text-forest"}`} />
+                      <Check size={14} className={`mt-0.5 flex-shrink-0 ${plan.highlight ? "text-black" : "text-forest"}`} />
                       {f}
                     </motion.li>
                   ))}
                   {plan.notIncluded.map((f) => (
-                    <li key={f} className={`flex items-start gap-3 text-sm ${plan.highlight ? "text-white/40" : "text-gray-300"}`}>
+                    <li key={f} className={`flex items-start gap-3 text-sm ${plan.highlight ? "text-black/40" : "text-white/30"}`}>
                       <span className="w-3.5 h-px mt-2 flex-shrink-0 bg-current" />
                       {f}
                     </li>
@@ -292,21 +266,21 @@ export default function MembershipPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ y: -4, transition: { duration: 0.25 } }}
-                className="relative flex flex-col p-8 rounded-3xl bg-white border border-sand shadow-sm hover:shadow-lg transition-shadow duration-300"
+                className="relative flex flex-col p-8 rounded-3xl bg-cream-200 border border-white/5 shadow-sm hover:shadow-lg transition-shadow duration-300"
               >
                 {plan.badge && (
                   <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-bark text-white text-xs px-4 py-1.5 tracking-widest uppercase whitespace-nowrap rounded-full">
                     {plan.badge}
                   </span>
                 )}
-                <div className="w-11 h-11 flex items-center justify-center mb-5 rounded-xl bg-sand">
+                <div className="w-11 h-11 flex items-center justify-center mb-5 rounded-xl bg-cream-100">
                   <Icon size={18} className="text-forest" />
                 </div>
-                <p className="text-xs tracking-widest uppercase mb-1 text-gray-400">{plan.tagline}</p>
+                <p className="text-xs tracking-widest uppercase mb-1 text-white/40">{plan.tagline}</p>
                 <h2 className="font-display text-2xl mb-4">{plan.name}</h2>
                 <div className="mb-8">
                   <span className="font-display text-5xl inline-block">£{plan.price.monthly}</span>
-                  <span className="text-sm ml-1 text-gray-400">/{plan.unit}</span>
+                  <span className="text-sm ml-1 text-white/40">/{plan.unit}</span>
                 </div>
                 <ul className="space-y-3 flex-1 mb-8">
                   {plan.features.map((f, fi) => (
@@ -346,7 +320,7 @@ export default function MembershipPage() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <p className="text-xs tracking-widest uppercase text-gray-400 mb-3">FAQs</p>
+            <p className="text-xs tracking-widest uppercase text-white/40 mb-3">FAQs</p>
             <h2 className="font-display text-4xl">Common questions</h2>
           </motion.div>
 
@@ -358,13 +332,13 @@ export default function MembershipPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="bg-white rounded-2xl overflow-hidden"
+                className="bg-cream-200 rounded-2xl overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between px-6 py-5 text-left"
                 >
-                  <span className="font-medium text-sm">{faq.q}</span>
+                  <span className="font-medium text-sm text-white">{faq.q}</span>
                   <ChevronDown
                     size={16}
                     className={`flex-shrink-0 text-forest transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`}
@@ -378,7 +352,7 @@ export default function MembershipPage() {
                       exit={{ height: 0 }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 text-sm text-gray-600 leading-relaxed">{faq.a}</p>
+                      <p className="px-6 pb-5 text-sm text-white/60 leading-relaxed">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -389,7 +363,7 @@ export default function MembershipPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-forest text-white py-20 text-center">
+      <section className="bg-cream py-20 text-center">
         <h2 className="font-display text-4xl mb-4">Still not sure?</h2>
         <p className="text-white/70 mb-8 max-w-md mx-auto">Try a single drop-in class first. No commitment, no pressure.</p>
         <Link to="/book" className="btn-ghost">Book a Drop-In Class</Link>

@@ -21,4 +21,10 @@ public/*.png
 !public/hex-cafe.jpg
 !public/hex-membership.jpg
 !public/hex-gallery.jpg
+!public/hero.jpg
+!public/cafe.jpg
+!public/cafe-1.jpg
+!public/cafe-2.jpg
+!public/cafe-3.jpg
+!public/cafe-4.jpg
 .vercel

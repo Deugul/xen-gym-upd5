@@ -13,7 +13,7 @@ export default function GalleryPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-64 flex items-center justify-center bg-forest overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+      <section className="relative h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1400&q=80')" }}
@@ -37,7 +37,7 @@ export default function GalleryPage() {
               </svg>
             </div>
             <h2 className="font-display text-2xl mb-3">Gallery coming soon</h2>
-            <p className="text-gray-500 text-sm max-w-sm mx-auto">
+            <p className="text-white/50 text-sm max-w-sm mx-auto">
               Upload your images and they'll appear here in a beautiful masonry grid.
             </p>
           </motion.div>

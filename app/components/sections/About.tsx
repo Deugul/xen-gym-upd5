@@ -15,7 +15,7 @@ export function About() {
           <h2 className="font-display text-4xl md:text-5xl leading-tight mb-6">
             Shape your body.<br />Shift your mindset.
           </h2>
-          <p className="text-gray-600 leading-relaxed mb-8">
+          <p className="text-white/60 leading-relaxed mb-8">
             Movement is at the heart of what we do. It helps you build strength, improve mobility, and take a
             moment to slow down. Whether you're completely new or have years of experience, our classes are
             designed to be welcoming, effective, and accessible for all levels. It's a chance to move with purpose,
