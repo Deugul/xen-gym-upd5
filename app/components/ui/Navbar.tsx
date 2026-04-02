@@ -12,7 +12,6 @@ const navLinks = [
   { to: "/shop", label: "Shop" },
   { to: "/cafe", label: "Cafe" },
   { to: "/membership", label: "Membership" },
-  { to: "/faq", label: "FAQs" },
   { to: "/contact", label: "Contact" },
 ];
 

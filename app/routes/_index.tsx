@@ -3,10 +3,10 @@ import { Hero } from "~/components/sections/Hero";
 import { About } from "~/components/sections/About";
 import { FeatureCards } from "~/components/sections/FeatureCards";
 import { GiftCard } from "~/components/sections/GiftCard";
+import { HomeFaq } from "~/components/sections/HomeFaq";
 import { Testimonials } from "~/components/sections/Testimonials";
-import { InstagramGrid } from "~/components/sections/InstagramGrid";
 import { GymBanner } from "~/components/sections/GymBanner";
-import { FaqTeaser } from "~/components/sections/FaqTeaser";
+import { InstagramGrid } from "~/components/sections/InstagramGrid";
 
 export const meta: MetaFunction = () => [
   { title: "XEN Gym — Find Your Ground | Halifax, West Yorkshire" },
@@ -20,7 +20,7 @@ export default function Index() {
       <About />
       <FeatureCards />
       <GiftCard />
-      <FaqTeaser />
+      <HomeFaq />
       <Testimonials />
       <GymBanner />
       <InstagramGrid />
