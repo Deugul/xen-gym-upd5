@@ -11,7 +11,7 @@ export function GymBanner() {
         className="absolute inset-0"
       >
         <img
-          src="/hero.jpg"
+          src="/gym-banner.jpg"
           alt="XEN Gym studio"
           className="w-full h-full object-cover"
         />

@@ -14,4 +14,6 @@ public/*.jpg
 public/*.jpeg
 public/*.png
 !public/xen-logo.png
+!public/gym-gift.jpg
+!public/gym-banner.jpg
 .vercel

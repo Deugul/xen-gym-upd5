@@ -42,7 +42,7 @@ export function GiftCard() {
           >
             <div className="relative w-full max-w-sm aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/hero.jpg"
+                src="/gym-gift.jpg"
                 alt="XEN Gym interior"
                 className="w-full h-full object-cover"
               />
