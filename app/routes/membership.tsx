@@ -29,8 +29,8 @@ const plans = [
       "Guest passes",
     ],
     cta: "Book Now",
-    to: "https://momence.com/sign-in?hostId=230727",
-    external: true,
+    to: "/book",
+    external: false,
   },
   {
     id: "monthly-4",
