@@ -1,8 +1,8 @@
 {
+  "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "build/client",
   "installCommand": "npm install --legacy-peer-deps",
-  "framework": "remix",
   "functions": {
     "api/index.js": {
       "runtime": "nodejs20.x",
