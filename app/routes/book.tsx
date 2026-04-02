@@ -97,9 +97,9 @@ export default function BookPage() {
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
         {/* Class type filter */}
-        <div className="flex gap-2 flex-wrap mb-10">
+        <div className="flex gap-2 flex-wrap mb-8">
           {classTypes.map((type) => (
             <button
               key={type}

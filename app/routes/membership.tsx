@@ -173,7 +173,7 @@ export default function MembershipPage() {
 
 
       {/* Plans */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-6">
           {plans.slice(0, 3).map((plan, i) => {
             const Icon = plan.icon;
@@ -312,13 +312,13 @@ export default function MembershipPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-sand py-24">
+      <section className="bg-sand py-16 sm:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-14"
+            className="text-center mb-10 sm:mb-14"
           >
             <p className="text-xs tracking-widest uppercase text-white/40 mb-3">FAQs</p>
             <h2 className="font-display text-4xl">Common questions</h2>
@@ -363,7 +363,7 @@ export default function MembershipPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-cream py-20 text-center">
+      <section className="bg-cream py-14 sm:py-20 text-center">
         <h2 className="font-display text-4xl mb-4">Still not sure?</h2>
         <p className="text-white/70 mb-8 max-w-md mx-auto">Try a single drop-in class first. No commitment, no pressure.</p>
         <Link to="/book" className="btn-ghost">Book a Drop-In Class</Link>

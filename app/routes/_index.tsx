@@ -21,7 +21,7 @@ export default function Index() {
       <FeatureCards />
       <GiftCard />
       <Testimonials />
-      <section className="bg-cream py-20 text-center">
+      <section className="bg-cream py-16 sm:py-20 text-center">
         <p className="text-xs tracking-widest uppercase text-forest mb-3">Support</p>
         <h2 className="font-display text-4xl sm:text-5xl mb-4">Got questions?</h2>
         <p className="text-white/60 mb-8 max-w-md mx-auto">Everything you need to know about classes, bookings and the studio.</p>

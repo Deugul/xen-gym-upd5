@@ -42,9 +42,9 @@ export default function ShopPage() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 mb-12 justify-center">
+        <div className="flex flex-wrap gap-2 mb-8 sm:mb-10 justify-center">
           {categories.map((cat) => (
             <button
               key={cat}

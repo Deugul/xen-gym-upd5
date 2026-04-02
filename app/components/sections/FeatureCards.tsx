@@ -12,12 +12,12 @@ export function FeatureCards() {
   const hexClip = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
 
   return (
-    <section className="py-16 md:py-20 bg-cream overflow-hidden">
+    <section className="pt-14 sm:pt-16 pb-36 sm:pb-44 bg-cream overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-10 md:mb-14 px-4"
+        className="text-center mb-8 md:mb-10 px-4"
       >
         <p className="text-xs tracking-widest uppercase text-white/40 mb-2">Explore</p>
         <h2 className="font-display text-3xl sm:text-4xl">Everything XEN</h2>

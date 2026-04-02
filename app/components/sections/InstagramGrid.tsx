@@ -1,5 +1,14 @@
 import { motion } from "framer-motion";
-import { Instagram } from "lucide-react";
+
+function IconInstagram({ size = 20, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 const photos = [
   "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80",
@@ -12,7 +21,7 @@ const photos = [
 
 export function InstagramGrid() {
   return (
-    <section className="py-16 bg-sand">
+    <section className="py-14 sm:py-20 bg-sand">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,7 +29,7 @@ export function InstagramGrid() {
           viewport={{ once: true }}
           className="flex items-center justify-center gap-2 mb-8"
         >
-          <Instagram size={20} className="text-forest" />
+          <IconInstagram size={20} className="text-forest" />
           <a
             href="https://instagram.com/xengym"
             target="_blank"

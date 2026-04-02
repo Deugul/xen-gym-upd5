@@ -133,7 +133,7 @@ export default function FaqPage() {
       </section>
 
       {/* Sections */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 space-y-20">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-14 sm:py-20 space-y-14 sm:space-y-20">
         {sections.map((section, si) => (
           <motion.div
             key={section.heading}
@@ -143,7 +143,7 @@ export default function FaqPage() {
             transition={{ duration: 0.5, delay: si * 0.1 }}
           >
             {/* Section heading */}
-            <div className="mb-8">
+            <div className="mb-6 sm:mb-8">
               <span className="text-xs tracking-widest uppercase text-white/40">0{si + 1}</span>
               <h2 className="font-display text-3xl sm:text-4xl mt-1">{section.heading}</h2>
               <div className="w-10 h-px bg-forest mt-3" />
@@ -160,7 +160,7 @@ export default function FaqPage() {
       </div>
 
       {/* CTA */}
-      <section className="bg-cream py-16 text-center">
+      <section className="bg-cream py-14 sm:py-16 text-center">
         <h2 className="font-display text-3xl sm:text-4xl mb-4">Ready to start?</h2>
         <p className="text-white/70 mb-8 max-w-md mx-auto text-sm">Book your first class today — no experience needed.</p>
         <a
