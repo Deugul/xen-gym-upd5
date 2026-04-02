@@ -3,8 +3,8 @@ import { useState } from "react";
 import { ProductCard, type MockProduct } from "~/components/shop/ProductCard";
 
 export const meta: MetaFunction = () => [
-  { title: "Shop — XEN Gym" },
-  { name: "description", content: "Premium gym wear, grip socks, supplements and accessories from XEN Gym." },
+  { title: "Shop — XEN Studio" },
+  { name: "description", content: "Premium gym wear, grip socks, supplements and accessories from XEN Studio." },
 ];
 
 const products: MockProduct[] = [
@@ -37,7 +37,7 @@ export default function ShopPage() {
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80')" }}
         />
         <div className="relative z-10 text-center text-white">
-          <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Gym</p>
+          <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Studio</p>
           <h1 className="font-display text-5xl md:text-6xl">Shop</h1>
         </div>
       </section>

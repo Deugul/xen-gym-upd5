@@ -12,7 +12,7 @@ export function GymBanner() {
       >
         <img
           src="/gym-banner.jpg"
-          alt="XEN Gym studio"
+          alt="XEN Studio studio"
           className="w-full h-full object-cover"
         />
       </motion.div>

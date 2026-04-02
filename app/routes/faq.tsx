@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 export const meta: MetaFunction = () => [
-  { title: "FAQs — XEN Gym" },
-  { name: "description", content: "Answers to common questions about XEN Gym — classes, bookings, the studio and getting started." },
+  { title: "FAQs — XEN Studio" },
+  { name: "description", content: "Answers to common questions about XEN Studio — classes, bookings, the studio and getting started." },
 ];
 
 const sections = [
@@ -127,7 +127,7 @@ export default function FaqPage() {
       {/* Hero */}
       <section className="relative h-56 sm:h-64 flex items-center justify-center bg-forest overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div className="relative z-10 text-center text-white px-4">
-          <p className="text-xs tracking-widest uppercase text-white/60 mb-3">XEN Gym</p>
+          <p className="text-xs tracking-widest uppercase text-white/60 mb-3">XEN Studio</p>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl">FAQs</h1>
         </div>
       </section>

@@ -2,8 +2,8 @@ import type { MetaFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 
 export const meta: MetaFunction = () => [
-  { title: "Gallery — XEN Gym" },
-  { name: "description", content: "Photos from XEN Gym Halifax." },
+  { title: "Gallery — XEN Studio" },
+  { name: "description", content: "Photos from XEN Studio Halifax." },
 ];
 
 // Placeholder images — replace with your own uploads
@@ -19,7 +19,7 @@ export default function GalleryPage() {
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1400&q=80')" }}
         />
         <div className="relative z-10 text-center text-white">
-          <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Gym</p>
+          <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Studio</p>
           <h1 className="font-display text-5xl md:text-6xl">Gallery</h1>
         </div>
       </section>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Coffee, Leaf, Zap, UtensilsCrossed } from "lucide-react";
 
 export const meta: MetaFunction = () => [
-  { title: "Cafe — XEN Gym" },
+  { title: "Cafe — XEN Studio" },
   { name: "description", content: "Fuel your body at XEN Cafe. Smoothies, protein bowls, specialty coffee and healthy snacks." },
 ];
 
@@ -73,7 +73,7 @@ export default function CafePage() {
             transition={{ duration: 0.6 }}
             className="text-xs tracking-widest uppercase text-white/60 mb-3"
           >
-            XEN Gym
+            XEN Studio
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}

@@ -5,8 +5,8 @@ import { Check, ChevronDown, Zap, Star, Crown, Users, Lock } from "lucide-react"
 import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => [
-  { title: "Membership — XEN Gym" },
-  { name: "description", content: "Join XEN Gym. Choose a membership plan that works for you — drop-in, monthly or annual." },
+  { title: "Membership — XEN Studio" },
+  { name: "description", content: "Join XEN Studio. Choose a membership plan that works for you — drop-in, monthly or annual." },
 ];
 
 const plans = [

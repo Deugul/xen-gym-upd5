@@ -9,7 +9,7 @@ import { GymBanner } from "~/components/sections/GymBanner";
 import { InstagramGrid } from "~/components/sections/InstagramGrid";
 
 export const meta: MetaFunction = () => [
-  { title: "XEN Gym — Find Your Ground | Halifax, West Yorkshire" },
+  { title: "XEN Studio — Find Your Ground | Halifax, West Yorkshire" },
   { name: "description", content: "Premium gym and reformer pilates studio in Halifax. Strength training, HIIT, yoga, spin and more. Find your ground at XEN." },
 ];
 

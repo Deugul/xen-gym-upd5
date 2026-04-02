@@ -35,7 +35,7 @@ export function Footer() {
             <div className="font-display font-bold text-2xl tracking-tighter mb-1">XEN</div>
             <div className="font-body font-medium tracking-[0.3em] text-white/60 uppercase text-xs mb-4">GYM</div>
             <address className="not-italic text-white/70 text-sm leading-relaxed">
-              XEN Gym Studio<br />
+              XEN Studio Studio<br />
               Broadway Retail Park<br />
               50 Queens Rd<br />
               Halifax HX1 3BJ
@@ -112,7 +112,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© 2026 XEN Gym. All rights reserved.</p>
+          <p>© 2026 XEN Studio. All rights reserved.</p>
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>

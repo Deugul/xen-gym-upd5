@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Users, MapPin } from "lucide-react";
 
 export const meta: MetaFunction = () => [
-  { title: "Book a Class — XEN Gym" },
-  { name: "description", content: "Browse and book real classes at XEN Gym. Reformer, Beginner, Intermediate and Multi Level." },
+  { title: "Book a Class — XEN Studio" },
+  { name: "description", content: "Browse and book real classes at XEN Studio. Reformer, Beginner, Intermediate and Multi Level." },
 ];
 
 interface MomenceEvent {
@@ -92,7 +92,7 @@ export default function BookPage() {
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1400&q=80')" }}
         />
         <div className="relative z-10 text-center text-white px-4">
-          <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Gym</p>
+          <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Studio</p>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl">Book a Class</h1>
         </div>
       </section>

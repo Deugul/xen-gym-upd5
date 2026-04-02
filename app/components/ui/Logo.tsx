@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <Link to="/" className={`flex items-center ${className}`} aria-label="XEN Gym Home">
+    <Link to="/" className={`flex items-center ${className}`} aria-label="XEN Studio Home">
       <img
         src="/xen-logo.png"
         alt="XEN"

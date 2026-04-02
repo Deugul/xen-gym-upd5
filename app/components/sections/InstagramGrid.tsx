@@ -46,7 +46,7 @@ export function InstagramGrid() {
             >
               <img
                 src={src}
-                alt={`XEN Gym Instagram post ${i + 1}`}
+                alt={`XEN Studio Instagram post ${i + 1}`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
               />
