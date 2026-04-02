@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, Zap, Star, Crown } from "lucide-react";
+import { Check, ChevronDown, Zap, Star, Crown, Users, Lock } from "lucide-react";
 import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => [
@@ -68,6 +68,46 @@ const plans = [
       "Rollover 2 classes per month",
       "Cafe discount (10%)",
       "Cancel anytime",
+    ],
+    notIncluded: [],
+    cta: "Book Now",
+    to: "https://momence.com/sign-in?hostId=230727",
+    external: true,
+  },
+  {
+    id: "1to1",
+    icon: Users,
+    name: "1 to 1",
+    tagline: "Personal training",
+    price: { monthly: "45", annual: "45" },
+    unit: "per session",
+    highlight: false,
+    features: [
+      "Private one-to-one session",
+      "Tailored programme",
+      "All equipment included",
+      "Flexible scheduling",
+    ],
+    notIncluded: [],
+    cta: "Book Now",
+    to: "https://momence.com/sign-in?hostId=230727",
+    external: true,
+  },
+  {
+    id: "studio-private",
+    icon: Lock,
+    name: "Studio private session",
+    tagline: "Exclusive studio hire",
+    price: { monthly: "95", annual: "95" },
+    unit: "per session",
+    highlight: false,
+    badge: "Premium",
+    features: [
+      "Exclusive studio access",
+      "Bring up to 4 guests",
+      "Full equipment use",
+      "Dedicated instructor",
+      "Personalised class design",
     ],
     notIncluded: [],
     cta: "Book Now",
@@ -155,7 +195,7 @@ export default function MembershipPage() {
       {/* Plans */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-6">
-          {plans.map((plan, i) => {
+          {plans.slice(0, 3).map((plan, i) => {
             const Icon = plan.icon;
             return (
               <motion.div
@@ -235,6 +275,62 @@ export default function MembershipPage() {
                     {plan.cta}
                   </Link>
                 )}
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Personal / Private row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 md:max-w-2xl md:mx-auto">
+          {plans.slice(3).map((plan, i) => {
+            const Icon = plan.icon;
+            return (
+              <motion.div
+                key={plan.id}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                whileHover={{ y: -4, transition: { duration: 0.25 } }}
+                className="relative flex flex-col p-8 rounded-3xl bg-white border border-sand shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                {plan.badge && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-bark text-white text-xs px-4 py-1.5 tracking-widest uppercase whitespace-nowrap rounded-full">
+                    {plan.badge}
+                  </span>
+                )}
+                <div className="w-11 h-11 flex items-center justify-center mb-5 rounded-xl bg-sand">
+                  <Icon size={18} className="text-forest" />
+                </div>
+                <p className="text-xs tracking-widest uppercase mb-1 text-gray-400">{plan.tagline}</p>
+                <h2 className="font-display text-2xl mb-4">{plan.name}</h2>
+                <div className="mb-8">
+                  <span className="font-display text-5xl inline-block">£{plan.price.monthly}</span>
+                  <span className="text-sm ml-1 text-gray-400">/{plan.unit}</span>
+                </div>
+                <ul className="space-y-3 flex-1 mb-8">
+                  {plan.features.map((f, fi) => (
+                    <motion.li
+                      key={f}
+                      initial={{ opacity: 0, x: -8 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 + fi * 0.04 }}
+                      className="flex items-start gap-3 text-sm"
+                    >
+                      <Check size={14} className="mt-0.5 flex-shrink-0 text-forest" />
+                      {f}
+                    </motion.li>
+                  ))}
+                </ul>
+                <a
+                  href={plan.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline w-full text-center rounded-xl"
+                >
+                  {plan.cta}
+                </a>
               </motion.div>
             );
           })}
