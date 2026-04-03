@@ -117,7 +117,7 @@ const plans = [
 const faqs = [
   {
     q: "Can I freeze my membership?",
-    a: "Yes. Monthly members can freeze for up to 4 weeks per year. Annual members can freeze for up to 8 weeks. Just drop us an email at hello@xengym.co.uk.",
+    a: "Yes. Monthly members can freeze for up to 4 weeks per year. Annual members can freeze for up to 8 weeks. Just drop us an email at xenpilatesx@gmail.com.",
   },
   {
     q: "What classes are included?",
