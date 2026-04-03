@@ -31,12 +31,12 @@ export function InstagramGrid() {
         >
           <IconInstagram size={20} className="text-forest" />
           <a
-            href="https://instagram.com/xengym"
+            href="https://www.instagram.com/xenpilates/"
             target="_blank"
             rel="noopener noreferrer"
             className="font-body text-lg font-medium tracking-wider text-white/80 hover:text-forest transition-colors"
           >
-            @xengym
+            @xenpilates
           </a>
         </motion.div>
 
@@ -44,7 +44,7 @@ export function InstagramGrid() {
           {photos.map((src, i) => (
             <motion.a
               key={i}
-              href="https://instagram.com/xengym"
+              href="https://www.instagram.com/xenpilates/"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0 }}
