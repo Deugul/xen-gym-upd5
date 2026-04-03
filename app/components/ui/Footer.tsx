@@ -10,19 +10,18 @@ function IconInstagram({ size = 18 }: { size?: number }) {
   );
 }
 
-function IconFacebook({ size = 18 }: { size?: number }) {
+function IconTiktok({ size = 18 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" />
     </svg>
   );
 }
 
-function IconYoutube({ size = 18 }: { size?: number }) {
+function IconSnapchat({ size = 18 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.017 2C9.33 2 7.4 3.37 6.57 5.46c-.28.71-.24 1.52-.22 2.26v.18c-.47.1-.96.05-1.38-.13-.18-.08-.38-.05-.5.1a.48.48 0 0 0-.06.5c.28.65.9 1.05 1.55 1.26-.04.17-.09.34-.14.51-.6 1.94-1.56 3.27-2.82 3.94a.49.49 0 0 0-.27.52c.04.24.23.42.47.46.8.13 1.38.43 1.75.89.18.22.16.47-.05.7-.32.35-.53.77-.53 1.21 0 .78.63 1.41 1.41 1.41.24 0 .47-.06.68-.17.7-.36 1.44-.54 2.2-.54.56 0 1.11.1 1.63.29.77.29 1.42.44 1.93.44s1.16-.15 1.93-.44c.52-.19 1.07-.29 1.63-.29.76 0 1.5.18 2.2.54.21.11.44.17.68.17.78 0 1.41-.63 1.41-1.41 0-.44-.21-.86-.53-1.21-.21-.23-.23-.48-.05-.7.37-.46.95-.76 1.75-.89.24-.04.43-.22.47-.46a.49.49 0 0 0-.27-.52c-1.26-.67-2.22-2-2.82-3.94-.05-.17-.1-.34-.14-.51.65-.21 1.27-.61 1.55-1.26a.48.48 0 0 0-.06-.5c-.12-.15-.32-.18-.5-.1-.42.18-.91.23-1.38.13v-.18c.02-.74.06-1.55-.22-2.26C16.6 3.37 14.67 2 12.017 2z" />
     </svg>
   );
 }
@@ -61,20 +60,19 @@ export function Footer() {
             <div className="font-display font-bold text-2xl tracking-tighter mb-1">XEN</div>
             <div className="font-body font-medium tracking-[0.3em] text-white/60 uppercase text-xs mb-4">Studio</div>
             <address className="not-italic text-white/70 text-sm leading-relaxed">
-              XEN Studio<br />
-              Broadway Retail Park<br />
-              50 Queens Rd<br />
-              Halifax HX1 3BJ
+              Xén Pilates<br />
+              Bingley Street<br />
+              Bradford BD8 9AH
             </address>
             <div className="flex gap-4 mt-6">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/xenpilates/" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Instagram">
                 <IconInstagram size={18} />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Facebook">
-                <IconFacebook size={18} />
+              <a href="https://www.tiktok.com/@xenpilates" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="TikTok">
+                <IconTiktok size={18} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="YouTube">
-                <IconYoutube size={18} />
+              <a href="https://www.snapchat.com/add/xenpilates" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Snapchat">
+                <IconSnapchat size={18} />
               </a>
             </div>
           </div>
