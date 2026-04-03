@@ -75,7 +75,9 @@ export default function BookPage() {
   const { events, error } = useLoaderData<typeof loader>();
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const classTypes = ["All", ...Array.from(new Set(events.map((e: MomenceEvent) => e.title.trim())))];
+  const tabOrder = ["All", "Multi Level", "Beginner", "Intermediate"];
+  const apiTypes = Array.from(new Set(events.map((e: MomenceEvent) => e.title.trim())));
+  const classTypes = tabOrder.filter(t => t === "All" || apiTypes.includes(t));
 
   const filtered = activeFilter === "All"
     ? events

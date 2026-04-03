@@ -41,6 +41,10 @@
     @apply inline-flex items-center justify-center px-8 py-3 border border-forest text-forest text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 hover:bg-forest hover:text-black focus:outline-none;
   }
 
+  .btn-dark {
+    @apply inline-flex items-center justify-center px-8 py-3 border border-black bg-black text-white text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 focus:outline-none hover:bg-black/80;
+  }
+
   .btn-ghost {
     @apply inline-flex items-center justify-center px-8 py-3 border text-sm font-medium tracking-widest uppercase rounded-xl transition-all duration-300 focus:outline-none;
     border-color: #C4963A;

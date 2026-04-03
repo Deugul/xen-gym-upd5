@@ -234,14 +234,14 @@ export default function MembershipPage() {
                     href={plan.to}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${plan.highlight ? "btn-ghost" : "btn-outline"} w-full text-center rounded-xl`}
+                    className={`${plan.highlight ? "btn-dark" : "btn-outline"} w-full text-center rounded-xl`}
                   >
                     {plan.cta}
                   </a>
                 ) : (
                   <Link
                     to={plan.to}
-                    className={`${plan.highlight ? "btn-ghost" : "btn-outline"} w-full text-center rounded-xl`}
+                    className={`${plan.highlight ? "btn-dark" : "btn-outline"} w-full text-center rounded-xl`}
                   >
                     {plan.cta}
                   </Link>
