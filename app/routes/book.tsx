@@ -75,11 +75,11 @@ export default function BookPage() {
   const { events, error } = useLoaderData<typeof loader>();
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const classTypes = ["All", ...Array.from(new Set(events.map((e: MomenceEvent) => e.title)))];
+  const classTypes = ["All", ...Array.from(new Set(events.map((e: MomenceEvent) => e.title.trim())))];
 
   const filtered = activeFilter === "All"
     ? events
-    : events.filter((e: MomenceEvent) => e.title === activeFilter);
+    : events.filter((e: MomenceEvent) => e.title.trim() === activeFilter);
 
   const grouped = groupByDay(filtered);
 
