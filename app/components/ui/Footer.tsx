@@ -68,10 +68,10 @@ export function Footer() {
               <a href="https://www.instagram.com/xenpilates/" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Instagram">
                 <IconInstagram size={18} />
               </a>
-              <a href="https://www.tiktok.com/@xenpilates" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="TikTok">
+              <a href="https://www.tiktok.com/@xenpilates?_r=1&_t=ZN-95EiDay9o8c" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="TikTok">
                 <IconTiktok size={18} />
               </a>
-              <a href="https://www.snapchat.com/add/xenpilates" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Snapchat">
+              <a href="https://snapchat.com/t/zptcLgae" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors" aria-label="Snapchat">
                 <IconSnapchat size={18} />
               </a>
             </div>
