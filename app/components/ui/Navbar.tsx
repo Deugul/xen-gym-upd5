@@ -1,7 +1,7 @@
 import { NavLink } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, User, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { useCartStore } from "~/store/cart";
 
@@ -56,9 +56,6 @@ export function Navbar() {
 
             {/* Icons */}
             <div className="flex items-center gap-4">
-              <a href="https://momence.com/sign-in?hostId=230727" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-forest transition-colors" aria-label="Account">
-                <User size={20} />
-              </a>
               <button
                 onClick={openCart}
                 className="relative text-white/70 hover:text-forest transition-colors"
