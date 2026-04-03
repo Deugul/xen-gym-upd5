@@ -22,7 +22,7 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="text-xs tracking-[0.4em] uppercase text-white/80 mb-6"
         >
-          Halifax, West Yorkshire
+          Bradford, West Yorkshire
         </motion.p>
 
         <motion.h1
@@ -31,7 +31,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.15 }}
           className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium leading-tight mb-8"
         >
-          Find Your Ground
+          Align Your Lifé
         </motion.h1>
 
         <motion.div

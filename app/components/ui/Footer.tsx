@@ -103,14 +103,14 @@ export function Footer() {
           <div>
             <h4 className="text-xs font-medium tracking-widest uppercase text-white/50 mb-4">Studio Hours</h4>
             <ul className="space-y-1.5 text-sm text-white/70">
-              <li className="flex justify-between gap-4"><span>Mon – Fri</span><span>6:00 – 21:00</span></li>
-              <li className="flex justify-between gap-4"><span>Saturday</span><span>7:00 – 18:00</span></li>
-              <li className="flex justify-between gap-4"><span>Sunday</span><span>8:00 – 16:00</span></li>
+              <li className="flex justify-between gap-4"><span>Mon – Fri</span><span>8am – 9pm</span></li>
+              <li className="flex justify-between gap-4"><span>Saturday</span><span>8am – 1pm</span></li>
+              <li className="flex justify-between gap-4"><span>Sunday</span><span>8am – 1pm</span></li>
             </ul>
             <div className="mt-6">
               <p className="text-xs text-white/40 uppercase tracking-wider mb-1">Email</p>
-              <a href="mailto:hello@xengym.co.uk" className="text-sm text-white/70 hover:text-white transition-colors">
-                hello@xengym.co.uk
+              <a href="mailto:xenpilatesx@gmail.com" className="text-sm text-white/70 hover:text-white transition-colors">
+                xenpilatesx@gmail.com
               </a>
             </div>
           </div>

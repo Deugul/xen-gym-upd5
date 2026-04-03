@@ -19,7 +19,7 @@ const products: MockProduct[] = [
   { id: "9", handle: "gift-card", title: "Gift Card", subtitle: "Give the gift of movement.", price: "50.00", image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=700&q=80", category: "Gift Cards", tag: "Gift" },
 ];
 
-const categories = ["All", "Apparel", "Accessories", "Supplements", "Equipment", "Gift Cards"];
+const categories = ["All", "Gift Cards"];
 
 export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("All");

@@ -23,7 +23,6 @@ const plans = [
       "Access to any single class",
       "All class types included",
       "No commitment required",
-      "Towel hire available",
     ],
     notIncluded: [
       "Priority booking",
@@ -46,7 +45,6 @@ const plans = [
       "All class types included",
       "Priority booking",
       "Rollover 1 class per month",
-      "Cancel anytime",
     ],
     notIncluded: [],
     cta: "Book Now",
@@ -68,7 +66,6 @@ const plans = [
       "Priority booking",
       "Rollover 2 classes per month",
       "Cafe discount (10%)",
-      "Cancel anytime",
     ],
     notIncluded: [],
     cta: "Book Now",
@@ -128,7 +125,7 @@ const faqs = [
   },
   {
     q: "Do I need to book in advance?",
-    a: "Yes, all classes must be pre-booked through the app or website. Monthly and Annual members get priority access to booking windows.",
+    a: "Yes, all classes must be pre-booked. Members get priority access to booking windows.",
   },
   {
     q: "Is there a joining fee?",

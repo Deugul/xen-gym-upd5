@@ -1,4 +1,3 @@
-import { Link } from "@remix-run/react";
 import { motion } from "framer-motion";
 
 export function About() {
@@ -21,9 +20,6 @@ export function About() {
             designed to be welcoming, effective, and accessible for all levels. It's a chance to move with purpose,
             breathe deeper, and invest in your wellbeing.
           </p>
-          <Link to="/about" className="btn-primary">
-            The XEN Approach
-          </Link>
         </motion.div>
       </div>
     </section>

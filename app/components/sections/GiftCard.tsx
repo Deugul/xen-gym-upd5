@@ -6,7 +6,7 @@ export function GiftCard() {
     <section className="relative overflow-hidden bg-cream rounded-3xl mx-2 my-2">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-20"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80')" }}
+        style={{ backgroundImage: "url('/hero-giftcard.jpg')" }}
       />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -25,7 +25,7 @@ export function GiftCard() {
               their best — give them the space to move, breathe, and reset.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/shop/gift-cards" className="btn-ghost">
+              <Link to="/shop" className="btn-ghost">
                 Shop Gift Cards
               </Link>
               <Link to="/membership" className="btn-outline border-white/30 text-white hover:bg-white hover:text-forest">

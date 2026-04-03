@@ -2,18 +2,18 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    name: "Harpreet Panesar",
-    text: "A hidden gem in Halifax! The studio has an amazing vibe and beautiful decor, which is exactly what you need for a great workout. The space is calming, the instructors are really helpful and always there to guide you. Would highly recommend to anyone looking for a reformer pilates class in Halifax.",
+    name: "Hajra Yousafzai",
+    text: "Only been coming to this class for 2 weeks and I'm already hooked! The instructor is so knowledgeable and patient – they make sure everyone's form is correct, which is perfect as I'm new to Pilates. The studio is bright, clean, and the small class size means great individual attention. I can already feel better flexibility and less tension in my shoulders, plus the friendly atmosphere makes every session enjoyable.",
     stars: 5,
   },
   {
-    name: "Nicole",
-    text: "Absolutely love this Pilates studio! All the instructors and staff members are incredible. The studio itself is beautifully designed, and creates such a positive environment to move in. 100% would highly recommend.",
+    name: "Juvaria Khalifa",
+    text: "I truly can't say enough good things about this Pilates session. From the moment I walked in, I felt welcomed, supported, and genuinely cared for. You were incredibly hospitable, kind, and attentive, creating an environment that felt both professional and comforting. This was my very first Pilates lesson, and I'm so glad I decided to do it. Every part of the session was thoughtfully guided, motivating, and empowering, regardless of experience level. This is genuinely the best place ever to practice Pilates — not just for the physical benefits, but for the sense of community and encouragement throughout the class. I will definitely be coming back and recommending it to everyone I know.",
     stars: 5,
   },
   {
-    name: "Zakiya Ahmed",
-    text: "I've been to XEN Studio a couple of times now and absolutely loved it and I've got two more classes already lined up! The studio has such a welcoming and positive vibe. The instructors are genuinely kind, supportive, and made me feel comfortable right away — even as a newcomer. Each class was not only a great workout but also a lot of fun.",
+    name: "Em Khan",
+    text: "I don't normally write reviews but this was honestly one of the most enjoyable Pilates experiences I've had. Doing Pilates for over a year now and this studio is by far the cutest studio in Yorkshire with a real sense of community, my instructor Aisha was so lovely she tailored the session to everyone's ability and was actively correcting form which is everything you want at a Pilates session! They also have a really nice drinks menu which is always a plus. Overall I would definitely recommend and will be back soon.",
     stars: 5,
   },
 ];
