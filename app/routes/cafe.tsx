@@ -1,187 +1,166 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Coffee, Leaf, Zap, UtensilsCrossed } from "lucide-react";
+import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => [
-  { title: "Cafe — XEN Studio" },
-  { name: "description", content: "Fuel your body at XEN Cafe. Smoothies, protein bowls, specialty coffee and healthy snacks." },
+  { title: "Cafe — Xén Pilates" },
+  { name: "description", content: "Unwind before or after your class at the Xén Cafe. Specialty matcha, coffee, and drinks in a calm, welcoming space." },
 ];
 
-const menu = {
-  "Hot Drinks": {
-    icon: Coffee,
-    items: [
-      { name: "Flat White", description: "Double espresso with silky steamed milk", price: "3.50" },
-      { name: "Matcha Latte", description: "Ceremonial grade matcha with oat milk", price: "4.20" },
-      { name: "Turmeric Latte", description: "Golden milk blend with coconut milk", price: "4.00" },
-      { name: "Americano", description: "Double espresso with hot water", price: "3.00" },
-      { name: "Chai Latte", description: "Spiced chai with steamed oat milk", price: "4.00" },
-    ],
-  },
-  "Cold Drinks": {
-    icon: Leaf,
-    items: [
-      { name: "Cold Brew", description: "12-hour slow-brewed black coffee", price: "4.00" },
-      { name: "Iced Matcha", description: "Ceremonial matcha over ice with oat milk", price: "4.50" },
-      { name: "Coconut Water", description: "100% natural, no added sugar", price: "3.00" },
-      { name: "Kombucha", description: "Raw organic fermented tea — rotating flavours", price: "3.80" },
-    ],
-  },
-  "Smoothies": {
-    icon: Zap,
-    items: [
-      { name: "Green Machine", description: "Spinach, banana, mango, ginger, coconut water", price: "6.50" },
-      { name: "Berry Blast", description: "Mixed berries, banana, almond milk, honey", price: "6.00" },
-      { name: "Tropical Glow", description: "Pineapple, mango, turmeric, coconut milk", price: "6.50" },
-      { name: "Peanut Power", description: "Banana, peanut butter, oat milk, cacao", price: "6.50" },
-      { name: "Protein Shake", description: "Whey protein, banana, almond milk, honey — 30g protein", price: "7.50" },
-    ],
-  },
-  "Bowls & Food": {
-    icon: UtensilsCrossed,
-    items: [
-      { name: "Acai Bowl", description: "Frozen acai, granola, banana, mixed berries, coconut flakes, honey", price: "9.50" },
-      { name: "Protein Bowl", description: "Quinoa, grilled chicken, avocado, roasted veg, tahini dressing", price: "12.00" },
-      { name: "Overnight Oats", description: "Oats, chia seeds, almond milk, berries, maple syrup", price: "6.00" },
-      { name: "Avocado Toast", description: "Sourdough, avocado, poached egg, chilli flakes, microgreens", price: "9.00" },
-      { name: "Energy Balls (x3)", description: "Dates, oats, nut butter, cacao, coconut", price: "4.50" },
-      { name: "Banana Bread", description: "Homemade, gluten-free option available", price: "3.50" },
-    ],
-  },
-};
-
-type MenuCategory = keyof typeof menu;
-
 export default function CafePage() {
-  const [activeTab, setActiveTab] = useState<MenuCategory>("Hot Drinks");
-  const { items } = menu[activeTab];
-
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+      <section className="relative h-[75vh] flex items-end justify-center overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/cafe.jpg')" }}
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center text-white px-4">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="relative z-10 text-center text-white px-4 pb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-xs tracking-widest uppercase text-white/60 mb-3"
           >
-            XEN Studio
+            Xén Pilates
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl md:text-7xl mb-6"
+            className="font-display text-5xl sm:text-6xl md:text-8xl mb-4"
           >
-            Cafe
+            The Cafe
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-white/80 text-lg max-w-md mx-auto"
+            transition={{ delay: 0.35 }}
+            className="text-white/75 text-base sm:text-lg max-w-sm mx-auto"
           >
-            Fuel your body. Nourish your mind.
+            Slow down. Sip something good.
           </motion.p>
         </div>
       </section>
 
       {/* Intro */}
-      <section className="bg-sand py-16 text-center">
-        <div className="max-w-2xl mx-auto px-4">
-          <h2 className="font-display text-3xl mb-4">Made for movers</h2>
-          <p className="text-white/60 leading-relaxed">
-            Every item on our menu is crafted to support your performance and recovery.
-            From post-class protein bowls to pre-workout smoothies and specialty coffee —
-            everything is made fresh, with ingredients you can feel good about.
-          </p>
-        </div>
-      </section>
-
-      {/* Menu */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        {/* Tab nav */}
-        <div className="flex flex-wrap gap-2 justify-center mb-14">
-          {(Object.keys(menu) as MenuCategory[]).map((cat) => {
-            const { icon: TabIcon } = menu[cat];
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveTab(cat)}
-                className={`flex items-center gap-2 px-6 py-3 text-sm font-medium tracking-wide border transition-all duration-200 ${
-                  activeTab === cat
-                    ? "bg-forest text-black border-forest"
-                    : "bg-transparent text-white/60 border-white/10 hover:border-forest hover:text-forest"
-                }`}
-              >
-                <TabIcon size={14} />
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Items */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center">
         <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
         >
-          {items.map((item, i) => (
-            <motion.div
-              key={item.name}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.06 }}
-              className="flex items-start justify-between gap-6 p-6 bg-cream-100 hover:bg-cream-200 transition-colors"
-            >
-              <div className="flex-1">
-                <h3 className="font-medium text-base mb-1">{item.name}</h3>
-                <p className="text-sm text-white/50">{item.description}</p>
-              </div>
-              <span className="font-display text-lg text-forest whitespace-nowrap">£{item.price}</span>
-            </motion.div>
-          ))}
+          <p className="text-xs tracking-widest uppercase text-white/40 mb-4">A place to be</p>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl mb-6 leading-snug">
+            Your space before and after class
+          </h2>
+          <p className="text-white/60 leading-relaxed text-base sm:text-lg">
+            The Xén Cafe is designed to be more than just a drink stop. It's a calm, beautiful space where you can
+            arrive early, settle in, and get centred — or stay a little longer after class to let the good feeling last.
+            Whether you're after a ceremonial matcha, a specialty flat white, or something cold and refreshing,
+            everything is crafted with care and served in a space you'll actually want to be in.
+          </p>
         </motion.div>
       </section>
 
-      {/* Photo strip */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-1">
-        {[
-          "/cafe-1.jpg",
-          "/cafe-2.jpg",
-          "/cafe-3.jpg",
-          "/cafe-4.jpg",
-        ].map((src, i) => (
-          <div key={i} className="aspect-square overflow-hidden">
-            <img
-              src={src}
-              alt={`Cafe food ${i + 1}`}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
+      {/* Two-image split */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-1 mx-2">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="aspect-[4/3] overflow-hidden rounded-2xl"
+        >
+          <img src="/cafe-3.jpg" alt="Xén Cafe drinks" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="aspect-[4/3] overflow-hidden rounded-2xl"
+        >
+          <img src="/cafe-4.jpg" alt="Xén Cafe space" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+        </motion.div>
+      </section>
+
+      {/* Drinks highlight */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-xs tracking-widest uppercase text-white/40 mb-4">On the menu</p>
+            <h2 className="font-display text-3xl sm:text-4xl mb-6">Made with intention</h2>
+            <p className="text-white/60 leading-relaxed mb-8">
+              From ceremonial grade matcha and cold brew to smoothies and plant-based snacks —
+              every drink and bite on our menu is chosen to complement how you move and how you feel.
+              No rush, no noise. Just good things, made well.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              {["Matcha Latte", "Flat White", "Iced Matcha", "Cold Brew", "Smoothies", "Healthy Snacks"].map((item) => (
+                <div key={item} className="flex items-center gap-2 text-sm text-white/70">
+                  <span className="w-1.5 h-1.5 rounded-full bg-forest flex-shrink-0" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+          {/* Matcha image with XEN logo overlay */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="relative aspect-[3/4] overflow-hidden rounded-2xl"
+          >
+            <img src="/insta-2.jpg" alt="Matcha at Xén" className="w-full h-full object-cover" loading="lazy" />
+            <div className="absolute inset-0 bg-black/30 flex items-end justify-center pb-8">
+              <div className="text-center">
+                <div className="font-display font-bold text-3xl tracking-tighter text-white">XÈN</div>
+                <div className="font-body tracking-[0.35em] text-white/70 uppercase text-xs mt-0.5">Pilates</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Full-width image */}
+      <section className="mx-2 mb-1">
+        <div className="relative h-64 sm:h-96 overflow-hidden rounded-3xl">
+          <img src="/insta-6.jpg" alt="Xén cafe vibe" className="w-full h-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <p className="font-display text-3xl sm:text-5xl text-white text-center px-4">
+              Stay a little longer.
+            </p>
           </div>
-        ))}
+        </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-cream py-20 text-center">
-        <h2 className="font-display text-4xl mb-4">Visit us today</h2>
-        <p className="text-white/70 mb-8">Open to members and non-members. No booking required for the cafe.</p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/book" className="btn-ghost">Book a Class</a>
-          <a href="/membership" className="btn-outline border-white/30 text-white hover:bg-white hover:text-forest">Join XEN</a>
-        </div>
+      <section className="bg-cream py-20 text-center mx-2 my-2 rounded-3xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="font-display text-4xl mb-4">Come in. Stay a while.</h2>
+          <p className="text-white/60 mb-8 max-w-md mx-auto">
+            The cafe is open to all — members and guests. No booking needed. Just show up.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/book" className="btn-ghost">Book a Class</Link>
+            <Link to="/membership" className="btn-outline border-white/30 text-white hover:bg-white hover:text-forest">View Membership</Link>
+          </div>
+        </motion.div>
       </section>
     </>
   );
