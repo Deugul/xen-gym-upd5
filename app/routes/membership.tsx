@@ -194,8 +194,8 @@ export default function MembershipPage() {
 
       {/* Plans */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-20 sm:pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {plans.slice(0, 4).map((plan, i) => {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {plans.slice(0, 3).map((plan, i) => {
             const Icon = plan.icon;
             return (
               <motion.div
@@ -275,8 +275,8 @@ export default function MembershipPage() {
         </div>
 
         {/* Personal / Private row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-8 sm:mt-10 md:max-w-2xl md:mx-auto">
-          {plans.slice(4).map((plan, i) => {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-10">
+          {plans.slice(3).map((plan, i) => {
             const Icon = plan.icon;
             return (
               <motion.div
