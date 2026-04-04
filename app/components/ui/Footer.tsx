@@ -32,9 +32,9 @@ export function Footer() {
       {/* Newsletter */}
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h2 className="font-display text-3xl md:text-4xl mb-3">Stay in the flow</h2>
+          <h2 className="font-display text-3xl md:text-4xl mb-3">Ready to begin?</h2>
           <p className="text-white/70 text-sm mb-8 max-w-md mx-auto">
-            Studio notes, fresh drops, and exclusive treats — nothing extra, just what you'll love.
+            Join the Xén community. Drop your email and we'll be in touch with everything you need to get started.
           </p>
           <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
