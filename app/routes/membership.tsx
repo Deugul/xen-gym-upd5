@@ -125,7 +125,7 @@ const plans = [
     badge: "Premium",
     features: [
       "Exclusive studio access",
-      "Bring up to 4 guests",
+      "Bring up to 6 guests",
       "Full equipment use",
       "Dedicated instructor",
       "Personalised class design",
