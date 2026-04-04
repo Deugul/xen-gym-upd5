@@ -135,7 +135,7 @@ export default function CafePage() {
       {/* Full-width image */}
       <section className="mx-2 mb-1">
         <div className="relative h-64 sm:h-96 overflow-hidden rounded-3xl">
-          <img src="/insta-6.jpg" alt="Xén cafe vibe" className="w-full h-full object-cover" loading="lazy" />
+          <img src="/insta-6.jpg" alt="Xén cafe vibe" className="w-full h-full object-cover object-top" loading="lazy" />
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
             <p className="font-display text-3xl sm:text-5xl text-white text-center px-4">
               Stay a little longer.
