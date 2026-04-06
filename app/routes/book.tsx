@@ -139,12 +139,13 @@ export default function BookPage() {
 
       {/* Filters + toggle bar */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
-        <div className="flex items-center gap-3 overflow-x-auto">
+        <div className="flex items-center gap-3">
+          {/* Filters — scrollable, takes remaining space */}
           {view === "list" && (
-            <div className="flex gap-2 flex-nowrap flex-1">
+            <div className="flex gap-2 flex-nowrap overflow-x-auto flex-1 pb-1 scrollbar-hide">
               <button
                 onClick={() => { setActiveFilter("All"); setActiveHost("All"); }}
-                className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
+                className={`whitespace-nowrap px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 shrink-0 ${
                   activeFilter === "All" && activeHost === "All"
                     ? "bg-forest text-black border-forest"
                     : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
@@ -156,7 +157,7 @@ export default function BookPage() {
                 <button
                   key={type}
                   onClick={() => { setActiveFilter(type); setActiveHost("All"); }}
-                  className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
+                  className={`whitespace-nowrap px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 shrink-0 ${
                     activeFilter === type
                       ? "bg-forest text-black border-forest"
                       : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
@@ -169,7 +170,7 @@ export default function BookPage() {
                 <button
                   key={host}
                   onClick={() => { setActiveHost(host); setActiveFilter("All"); }}
-                  className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
+                  className={`whitespace-nowrap px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 shrink-0 ${
                     activeHost === host
                       ? "bg-forest text-black border-forest"
                       : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
@@ -180,8 +181,8 @@ export default function BookPage() {
               ))}
             </div>
           )}
-          <div className="flex-1" />
-          <div className="flex items-center gap-1 bg-cream-200 border border-white/10 rounded-xl p-1 shrink-0">
+          {/* Toggle — always pinned to the right */}
+          <div className="ml-auto flex items-center gap-1 bg-cream-200 border border-white/10 rounded-xl p-1 shrink-0">
             <button
               onClick={() => setView("list")}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
