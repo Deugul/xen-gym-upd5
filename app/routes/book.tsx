@@ -77,17 +77,40 @@ export default function BookPage() {
   const [activeHost, setActiveHost] = useState("All");
   const [view, setView] = useState<"list" | "calendar">("list");
   const scriptRef = useRef<HTMLScriptElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (view !== "calendar") return;
-
-    // Remove previous instance so the widget re-initialises into the visible div
-    if (scriptRef.current) {
-      scriptRef.current.remove();
-      scriptRef.current = null;
+    // Cleanup when leaving calendar view
+    if (view !== "calendar") {
+      if (wrapperRef.current) { wrapperRef.current.remove(); wrapperRef.current = null; }
+      if (scriptRef.current) { scriptRef.current.remove(); scriptRef.current = null; }
+      return;
     }
 
-    // Wait one tick for React to paint the visible div before injecting the script
+    // Remove stale instances
+    if (wrapperRef.current) { wrapperRef.current.remove(); wrapperRef.current = null; }
+    if (scriptRef.current) { scriptRef.current.remove(); scriptRef.current = null; }
+
+    // Build a fixed overlay containing #ribbon-schedule, appended to body
+    // so the Momence script (also appended to body) finds it as a sibling
+    const wrapper = document.createElement("div");
+    wrapper.style.cssText = [
+      "position:fixed",
+      "top:70px",   // below navbar
+      "left:0",
+      "right:0",
+      "bottom:0",
+      "overflow-y:auto",
+      "z-index:40",
+      "background:#fff",
+    ].join(";");
+
+    const scheduleDiv = document.createElement("div");
+    scheduleDiv.id = "ribbon-schedule";
+    wrapper.appendChild(scheduleDiv);
+    document.body.appendChild(wrapper);
+    wrapperRef.current = wrapper;
+
     const timer = setTimeout(() => {
       const script = document.createElement("script");
       script.src = "https://momence.com/plugin/host-schedule/host-schedule.js";
@@ -210,10 +233,7 @@ export default function BookPage() {
         </div>
       </div>
 
-      {/* Calendar view — full width Momence widget */}
-      {view === "calendar" && (
-        <div id="ribbon-schedule" className="w-full px-4 sm:px-6 lg:px-8 pb-10 min-h-screen" />
-      )}
+      {/* Calendar view — widget injected via useEffect into a fixed overlay */}
 
       {/* List view */}
       {view === "list" && (
