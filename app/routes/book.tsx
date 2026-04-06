@@ -214,7 +214,7 @@ export default function BookPage() {
 
       {/* Calendar view — Momence widget mounts here; script inserted as next sibling */}
       {view === "calendar" && (
-        <div id="ribbon-schedule" className="w-full min-h-screen" />
+        <div id="ribbon-schedule" />
       )}
 
       {/* List view */}
