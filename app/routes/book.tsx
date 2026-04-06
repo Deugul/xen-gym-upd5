@@ -136,10 +136,9 @@ export default function BookPage() {
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        {/* Filters row + view toggle */}
-        <div className="flex items-center gap-3 flex-wrap mb-8">
-          {/* Filters — only shown in list view */}
+      {/* Filters + toggle bar */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
+        <div className="flex items-center gap-3 flex-wrap">
           {view === "list" && (
             <div className="flex gap-2 flex-wrap flex-1">
               <button
@@ -180,18 +179,12 @@ export default function BookPage() {
               ))}
             </div>
           )}
-
-          {/* Spacer when calendar view */}
-          {view === "calendar" && <div className="flex-1" />}
-
-          {/* View toggle */}
+          <div className="flex-1" />
           <div className="flex items-center gap-1 bg-cream-200 border border-white/10 rounded-xl p-1 shrink-0">
             <button
               onClick={() => setView("list")}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
-                view === "list"
-                  ? "bg-forest text-black"
-                  : "text-white/50 hover:text-forest"
+                view === "list" ? "bg-forest text-black" : "text-white/50 hover:text-forest"
               }`}
             >
               <List size={14} />
@@ -200,9 +193,7 @@ export default function BookPage() {
             <button
               onClick={() => setView("calendar")}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
-                view === "calendar"
-                  ? "bg-forest text-black"
-                  : "text-white/50 hover:text-forest"
+                view === "calendar" ? "bg-forest text-black" : "text-white/50 hover:text-forest"
               }`}
             >
               <CalendarDays size={14} />
@@ -210,113 +201,101 @@ export default function BookPage() {
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Calendar view — Momence widget */}
-        {view === "calendar" && <div id="ribbon-schedule" className="min-h-[600px]" />}
+      {/* Calendar view — full width Momence widget */}
+      {view === "calendar" && (
+        <div id="ribbon-schedule" className="w-full px-4 sm:px-6 lg:px-8 pb-10" />
+      )}
 
-        {/* List view */}
-        {view === "list" && (
-          <>
-            {error && (
-              <p className="text-center text-white/40 py-16">{error}</p>
-            )}
+      {/* List view */}
+      {view === "list" && (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          {error && <p className="text-center text-white/40 py-16">{error}</p>}
 
-            {!error && filtered.length === 0 && (
-              <div className="text-center py-20 text-gray-400">
-                <p className="font-display text-2xl mb-2">No upcoming classes</p>
-                <p className="text-sm text-white/40">Check back soon</p>
-              </div>
-            )}
+          {!error && filtered.length === 0 && (
+            <div className="text-center py-20 text-gray-400">
+              <p className="font-display text-2xl mb-2">No upcoming classes</p>
+              <p className="text-sm text-white/40">Check back soon</p>
+            </div>
+          )}
 
-            <div className="space-y-10">
-              {Object.entries(grouped).map(([day, dayEvents]) => (
-                <div key={day}>
-                  <h2 className="font-display text-xl mb-4 text-forest">{formatDay(dayEvents[0].dateTime)}</h2>
-                  <div className="space-y-3">
-                    <AnimatePresence>
-                      {dayEvents.map((cls, i) => {
-                        const isFull = cls.spotsRemaining === 0;
-                        return (
-                          <motion.div
-                            key={cls.id}
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.35, delay: i * 0.05 }}
-                            className="bg-cream-200 border border-white/5 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-forest/30 hover:shadow-sm transition-all duration-200"
-                          >
-                            {/* Left info */}
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2 flex-wrap">
-                                <span className={`text-xs px-2.5 py-1 font-medium rounded-full ${levelColor[cls.title] ?? "bg-sand text-forest"}`}>
-                                  {cls.title}
+          <div className="space-y-10">
+            {Object.entries(grouped).map(([day, dayEvents]) => (
+              <div key={day}>
+                <h2 className="font-display text-xl mb-4 text-forest">{formatDay(dayEvents[0].dateTime)}</h2>
+                <div className="space-y-3">
+                  <AnimatePresence>
+                    {dayEvents.map((cls, i) => {
+                      const isFull = cls.spotsRemaining === 0;
+                      return (
+                        <motion.div
+                          key={cls.id}
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.35, delay: i * 0.05 }}
+                          className="bg-cream-200 border border-white/5 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-forest/30 hover:shadow-sm transition-all duration-200"
+                        >
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2 flex-wrap">
+                              <span className={`text-xs px-2.5 py-1 font-medium rounded-full ${levelColor[cls.title] ?? "bg-sand text-forest"}`}>
+                                {cls.title}
+                              </span>
+                              {isFull && (
+                                <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-red-50 text-red-500">Full</span>
+                              )}
+                              {!isFull && cls.spotsRemaining <= 2 && (
+                                <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-amber-50 text-amber-600">
+                                  {cls.spotsRemaining} spot{cls.spotsRemaining !== 1 ? "s" : ""} left
                                 </span>
-                                {isFull && (
-                                  <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-red-50 text-red-500">Full</span>
-                                )}
-                                {!isFull && cls.spotsRemaining <= 2 && (
-                                  <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-amber-50 text-amber-600">
-                                    {cls.spotsRemaining} spot{cls.spotsRemaining !== 1 ? "s" : ""} left
-                                  </span>
-                                )}
-                              </div>
-
-                              <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/50">
-                                <span className="flex items-center gap-1.5">
-                                  <Clock size={13} />
-                                  {formatTime(cls.dateTime)} · {cls.duration} min
-                                </span>
-                                {cls.teacher && (
-                                  <span className="flex items-center gap-1.5">
-                                    <Users size={13} />
-                                    {cls.teacher}
-                                  </span>
-                                )}
-                                <span className="flex items-center gap-1.5">
-                                  <MapPin size={13} />
-                                  {cls.location}
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Right — price + CTA */}
-                            <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-1">
-                              <span className="font-display text-xl text-white">£{cls.fixedPrice}</span>
-                              {isFull && cls.allowWaitlist ? (
-                                <a
-                                  href={cls.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-amber-400 text-amber-600 hover:bg-amber-50 transition-all duration-200 whitespace-nowrap"
-                                >
-                                  Join Waitlist
-                                </a>
-                              ) : isFull ? (
-                                <span className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-gray-200 text-gray-300 cursor-not-allowed whitespace-nowrap">
-                                  Full
-                                </span>
-                              ) : (
-                                <a
-                                  href={cls.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200 whitespace-nowrap"
-                                >
-                                  Book Now
-                                </a>
                               )}
                             </div>
-                          </motion.div>
-                        );
-                      })}
-                    </AnimatePresence>
-                  </div>
+                            <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/50">
+                              <span className="flex items-center gap-1.5">
+                                <Clock size={13} />
+                                {formatTime(cls.dateTime)} · {cls.duration} min
+                              </span>
+                              {cls.teacher && (
+                                <span className="flex items-center gap-1.5">
+                                  <Users size={13} />
+                                  {cls.teacher}
+                                </span>
+                              )}
+                              <span className="flex items-center gap-1.5">
+                                <MapPin size={13} />
+                                {cls.location}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-1">
+                            <span className="font-display text-xl text-white">£{cls.fixedPrice}</span>
+                            {isFull && cls.allowWaitlist ? (
+                              <a href={cls.link} target="_blank" rel="noopener noreferrer"
+                                className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-amber-400 text-amber-600 hover:bg-amber-50 transition-all duration-200 whitespace-nowrap">
+                                Join Waitlist
+                              </a>
+                            ) : isFull ? (
+                              <span className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-gray-200 text-gray-300 cursor-not-allowed whitespace-nowrap">
+                                Full
+                              </span>
+                            ) : (
+                              <a href={cls.link} target="_blank" rel="noopener noreferrer"
+                                className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200 whitespace-nowrap">
+                                Book Now
+                              </a>
+                            )}
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
                 </div>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </>
   );
 }
