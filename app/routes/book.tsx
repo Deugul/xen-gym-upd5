@@ -77,41 +77,20 @@ export default function BookPage() {
   const [activeHost, setActiveHost] = useState("All");
   const [view, setView] = useState<"list" | "calendar">("list");
   const scriptRef = useRef<HTMLScriptElement | null>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Cleanup when leaving calendar view
-    if (view !== "calendar") {
-      if (wrapperRef.current) { wrapperRef.current.remove(); wrapperRef.current = null; }
-      if (scriptRef.current) { scriptRef.current.remove(); scriptRef.current = null; }
-      return;
+    if (scriptRef.current) {
+      scriptRef.current.remove();
+      scriptRef.current = null;
     }
+    if (view !== "calendar") return;
 
-    // Remove stale instances
-    if (wrapperRef.current) { wrapperRef.current.remove(); wrapperRef.current = null; }
-    if (scriptRef.current) { scriptRef.current.remove(); scriptRef.current = null; }
-
-    // Build a fixed overlay containing #ribbon-schedule, appended to body
-    // so the Momence script (also appended to body) finds it as a sibling
-    const wrapper = document.createElement("div");
-    wrapper.style.cssText = [
-      "position:fixed",
-      "top:70px",   // below navbar
-      "left:0",
-      "right:0",
-      "bottom:0",
-      "overflow-y:auto",
-      "z-index:40",
-      "background:#fff",
-    ].join(";");
-
-    const scheduleDiv = document.createElement("div");
-    scheduleDiv.id = "ribbon-schedule";
-    wrapper.appendChild(scheduleDiv);
-    document.body.appendChild(wrapper);
-    wrapperRef.current = wrapper;
-
+    // Insert the script as the next sibling of #ribbon-schedule,
+    // matching the original Momence embed pattern so the widget mounts correctly.
     const timer = setTimeout(() => {
+      const scheduleDiv = document.getElementById("ribbon-schedule");
+      if (!scheduleDiv) return;
+
       const script = document.createElement("script");
       script.src = "https://momence.com/plugin/host-schedule/host-schedule.js";
       script.type = "module";
@@ -123,7 +102,7 @@ export default function BookPage() {
       script.setAttribute("default_filter", "show-all");
       script.setAttribute("default_view", "month");
       script.setAttribute("locale", "en");
-      document.body.appendChild(script);
+      scheduleDiv.insertAdjacentElement("afterend", script);
       scriptRef.current = script;
     }, 50);
 
@@ -233,7 +212,10 @@ export default function BookPage() {
         </div>
       </div>
 
-      {/* Calendar view — widget injected via useEffect into a fixed overlay */}
+      {/* Calendar view — Momence widget mounts here; script inserted as next sibling */}
+      {view === "calendar" && (
+        <div id="ribbon-schedule" className="w-full min-h-screen" />
+      )}
 
       {/* List view */}
       {view === "list" && (
