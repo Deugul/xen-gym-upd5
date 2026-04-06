@@ -77,19 +77,34 @@ export default function BookPage() {
   const [activeHost, setActiveHost] = useState("All");
   const [view, setView] = useState<"list" | "calendar">("list");
   const scriptRef = useRef<HTMLScriptElement | null>(null);
+  const momenceNodesRef = useRef<Element[]>([]);
+  const observerRef = useRef<MutationObserver | null>(null);
 
   useEffect(() => {
-    if (scriptRef.current) {
-      scriptRef.current.remove();
-      scriptRef.current = null;
-    }
+    // Clean up everything Momence added (nodes + script + observer)
+    momenceNodesRef.current.forEach(n => n.remove());
+    momenceNodesRef.current = [];
+    if (observerRef.current) { observerRef.current.disconnect(); observerRef.current = null; }
+    if (scriptRef.current) { scriptRef.current.remove(); scriptRef.current = null; }
+
     if (view !== "calendar") return;
 
-    // Insert the script as the next sibling of #ribbon-schedule,
-    // matching the original Momence embed pattern so the widget mounts correctly.
     const timer = setTimeout(() => {
       const scheduleDiv = document.getElementById("ribbon-schedule");
-      if (!scheduleDiv) return;
+      if (!scheduleDiv || !scheduleDiv.parentElement) return;
+
+      // Track every node Momence adds as a sibling so we can remove them later
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          mutation.addedNodes.forEach((node) => {
+            if (node instanceof Element && node.id !== "ribbon-schedule") {
+              momenceNodesRef.current.push(node);
+            }
+          });
+        }
+      });
+      observer.observe(scheduleDiv.parentElement, { childList: true });
+      observerRef.current = observer;
 
       const script = document.createElement("script");
       script.src = "https://momence.com/plugin/host-schedule/host-schedule.js";
