@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Users, MapPin, List, CalendarDays } from "lucide-react";
 
@@ -76,62 +76,6 @@ export default function BookPage() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeHost, setActiveHost] = useState("All");
   const [view, setView] = useState<"list" | "calendar">("list");
-  const scriptRef = useRef<HTMLScriptElement | null>(null);
-  const momenceNodesRef = useRef<Element[]>([]);
-  const observerRef = useRef<MutationObserver | null>(null);
-
-  useEffect(() => {
-    // Clean up everything Momence added (nodes + script + observer)
-    momenceNodesRef.current.forEach(n => n.remove());
-    momenceNodesRef.current = [];
-    if (observerRef.current) { observerRef.current.disconnect(); observerRef.current = null; }
-    if (scriptRef.current) { scriptRef.current.remove(); scriptRef.current = null; }
-
-    if (view !== "calendar") return;
-
-    const timer = setTimeout(() => {
-      const scheduleDiv = document.getElementById("ribbon-schedule");
-      if (!scheduleDiv) return;
-
-      // Momence appends its widget elements to document.body.
-      // Watch body, move each new node into #ribbon-schedule so it appears in the right place.
-      const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          mutation.addedNodes.forEach((node) => {
-            if (
-              node instanceof HTMLElement &&
-              node.id !== "ribbon-schedule" &&
-              !node.hasAttribute("src") // ignore script tags
-            ) {
-              const target = document.getElementById("ribbon-schedule");
-              if (target) {
-                target.appendChild(node);
-                momenceNodesRef.current.push(node);
-              }
-            }
-          });
-        }
-      });
-      observer.observe(document.body, { childList: true });
-      observerRef.current = observer;
-
-      const script = document.createElement("script");
-      script.src = `https://momence.com/plugin/host-schedule/host-schedule.js?t=${Date.now()}`;
-      script.type = "module";
-      script.async = true;
-      script.setAttribute("host_id", "230727");
-      script.setAttribute("teacher_ids", "[]");
-      script.setAttribute("location_ids", "[]");
-      script.setAttribute("tag_ids", "[]");
-      script.setAttribute("default_filter", "show-all");
-      script.setAttribute("default_view", "month");
-      script.setAttribute("locale", "en");
-      document.body.appendChild(script);
-      scriptRef.current = script;
-    }, 50);
-
-    return () => clearTimeout(timer);
-  }, [view]);
 
   const classTabOrder = ["Multi Level", "Beginner", "Intermediate"];
   const hostOrder = ["Umme H", "Aisha S", "Shazia A"];
@@ -236,9 +180,14 @@ export default function BookPage() {
         </div>
       </div>
 
-      {/* Calendar view — Momence widget mounts here; script inserted as next sibling */}
+      {/* Calendar view — self-hosted embed page in iframe */}
       {view === "calendar" && (
-        <div id="ribbon-schedule" className="w-full min-h-[80vh]" />
+        <iframe
+          src="/momence-embed"
+          title="Class Schedule"
+          className="w-full"
+          style={{ height: "85vh", border: "none" }}
+        />
       )}
 
       {/* List view */}
