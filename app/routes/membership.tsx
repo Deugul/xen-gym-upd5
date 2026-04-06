@@ -92,7 +92,7 @@ const plans = [
     ],
     notIncluded: [],
     cta: "Book Now",
-    to: "https://momence.com/X%C3%A9n-Pilates",
+    to: "https://momence.com/X%C3%A9n-Pilates/membership/16-Classes-a-Month---Xen-Ultimate/719888",
     external: true,
   },
   {
@@ -144,7 +144,7 @@ const faqs = [
   },
   {
     q: "What classes are included?",
-    a: "All memberships include access to our full timetable: Reformer Pilates, HIIT, Strength, Yoga, Spin, Barre and more. Check the schedule for full details.",
+    a: "All memberships include access to our full Reformer Pilates timetable. Check the schedule for full details.",
   },
   {
     q: "Do I need to book in advance?",
@@ -155,12 +155,8 @@ const faqs = [
     a: "No joining fee, ever. We believe in transparent pricing.",
   },
   {
-    q: "Can I bring a friend?",
-    a: "Monthly members receive 1 guest pass per month, Annual members receive 2. Additional guest passes can be purchased for £15 per class.",
-  },
-  {
     q: "What is your cancellation policy?",
-    a: "Monthly memberships can be cancelled with 30 days notice. Annual memberships are non-refundable but can be transferred to another person.",
+    a: "Monthly memberships can be cancelled with 28 days notice. Annual memberships are non-refundable but can be transferred to another person.",
   },
 ];
 

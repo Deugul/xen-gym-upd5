@@ -1,8 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, Users, MapPin } from "lucide-react";
+import { Clock, Users, MapPin, List, CalendarDays } from "lucide-react";
 
 export const meta: MetaFunction = () => [
   { title: "Book a Class — XEN Studio" },
@@ -74,14 +74,39 @@ const levelColor: Record<string, string> = {
 export default function BookPage() {
   const { events, error } = useLoaderData<typeof loader>();
   const [activeFilter, setActiveFilter] = useState("All");
+  const [activeHost, setActiveHost] = useState("All");
+  const [view, setView] = useState<"list" | "calendar">("list");
+  const scriptRef = useRef<HTMLScriptElement | null>(null);
 
-  const tabOrder = ["All", "Multi Level", "Beginner", "Intermediate"];
+  useEffect(() => {
+    if (scriptRef.current) return;
+    const script = document.createElement("script");
+    script.src = "https://momence.com/plugin/host-schedule/host-schedule.js";
+    script.type = "module";
+    script.async = true;
+    script.setAttribute("host_id", "230727");
+    script.setAttribute("teacher_ids", "[]");
+    script.setAttribute("location_ids", "[]");
+    script.setAttribute("tag_ids", "[]");
+    script.setAttribute("default_filter", "show-all");
+    script.setAttribute("locale", "en");
+    document.body.appendChild(script);
+    scriptRef.current = script;
+  }, []);
+
+  const classTabOrder = ["Multi Level", "Beginner", "Intermediate"];
+  const hostOrder = ["Umme H", "Aisha S", "Shazia A"];
   const apiTypes = Array.from(new Set(events.map((e: MomenceEvent) => e.title.trim())));
-  const classTypes = tabOrder.filter(t => t === "All" || apiTypes.includes(t));
+  const classTypes = classTabOrder.filter(t => apiTypes.includes(t));
 
-  const filtered = activeFilter === "All"
-    ? events
-    : events.filter((e: MomenceEvent) => e.title.trim() === activeFilter);
+  const filtered = events
+    .filter((e: MomenceEvent) => activeFilter === "All" || e.title.trim() === activeFilter)
+    .filter((e: MomenceEvent) => {
+      if (activeHost === "All") return true;
+      const [firstName, lastInitial] = activeHost.split(" ");
+      const teacher = e.teacher ?? "";
+      return teacher.startsWith(firstName) && teacher.includes(lastInitial);
+    });
 
   const grouped = groupByDay(filtered);
 
@@ -100,121 +125,185 @@ export default function BookPage() {
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        {/* Class type filter */}
-        <div className="flex gap-2 flex-wrap mb-8">
-          {classTypes.map((type) => (
+        {/* Filters row + view toggle */}
+        <div className="flex items-center gap-3 flex-wrap mb-8">
+          {/* Filters — only shown in list view */}
+          {view === "list" && (
+            <div className="flex gap-2 flex-wrap flex-1">
+              <button
+                onClick={() => { setActiveFilter("All"); setActiveHost("All"); }}
+                className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
+                  activeFilter === "All" && activeHost === "All"
+                    ? "bg-forest text-black border-forest"
+                    : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
+                }`}
+              >
+                All
+              </button>
+              {classTypes.map((type) => (
+                <button
+                  key={type}
+                  onClick={() => { setActiveFilter(type); setActiveHost("All"); }}
+                  className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
+                    activeFilter === type
+                      ? "bg-forest text-black border-forest"
+                      : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
+                  }`}
+                >
+                  {type}
+                </button>
+              ))}
+              {hostOrder.map((host) => (
+                <button
+                  key={host}
+                  onClick={() => { setActiveHost(host); setActiveFilter("All"); }}
+                  className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
+                    activeHost === host
+                      ? "bg-forest text-black border-forest"
+                      : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
+                  }`}
+                >
+                  {host}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Spacer when calendar view */}
+          {view === "calendar" && <div className="flex-1" />}
+
+          {/* View toggle */}
+          <div className="flex items-center gap-1 bg-cream-200 border border-white/10 rounded-xl p-1 shrink-0">
             <button
-              key={type}
-              onClick={() => setActiveFilter(type)}
-              className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
-                activeFilter === type
-                  ? "bg-forest text-black border-forest"
-                  : "bg-cream-200 text-white/60 border-white/10 hover:border-forest hover:text-forest"
+              onClick={() => setView("list")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+                view === "list"
+                  ? "bg-forest text-black"
+                  : "text-white/50 hover:text-forest"
               }`}
             >
-              {type}
+              <List size={14} />
+              List
             </button>
-          ))}
-        </div>
-
-        {error && (
-          <p className="text-center text-white/40 py-16">{error}</p>
-        )}
-
-        {!error && filtered.length === 0 && (
-          <div className="text-center py-20 text-gray-400">
-            <p className="font-display text-2xl mb-2">No upcoming classes</p>
-            <p className="text-sm text-white/40">Check back soon</p>
+            <button
+              onClick={() => setView("calendar")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
+                view === "calendar"
+                  ? "bg-forest text-black"
+                  : "text-white/50 hover:text-forest"
+              }`}
+            >
+              <CalendarDays size={14} />
+              Calendar
+            </button>
           </div>
-        )}
-
-        {/* Grouped by day */}
-        <div className="space-y-10">
-          {Object.entries(grouped).map(([day, dayEvents]) => (
-            <div key={day}>
-              <h2 className="font-display text-xl mb-4 text-forest">{formatDay(dayEvents[0].dateTime)}</h2>
-              <div className="space-y-3">
-                <AnimatePresence>
-                  {dayEvents.map((cls, i) => {
-                    const isFull = cls.spotsRemaining === 0;
-                    return (
-                      <motion.div
-                        key={cls.id}
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, delay: i * 0.05 }}
-                        className="bg-cream-200 border border-white/5 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-forest/30 hover:shadow-sm transition-all duration-200"
-                      >
-                        {/* Left info */}
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2 flex-wrap">
-                            <span className={`text-xs px-2.5 py-1 font-medium rounded-full ${levelColor[cls.title] ?? "bg-sand text-forest"}`}>
-                              {cls.title}
-                            </span>
-                            {isFull && (
-                              <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-red-50 text-red-500">Full</span>
-                            )}
-                            {!isFull && cls.spotsRemaining <= 2 && (
-                              <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-amber-50 text-amber-600">
-                                {cls.spotsRemaining} spot{cls.spotsRemaining !== 1 ? "s" : ""} left
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/50">
-                            <span className="flex items-center gap-1.5">
-                              <Clock size={13} />
-                              {formatTime(cls.dateTime)} · {cls.duration} min
-                            </span>
-                            {cls.teacher && (
-                              <span className="flex items-center gap-1.5">
-                                <Users size={13} />
-                                {cls.teacher}
-                              </span>
-                            )}
-                            <span className="flex items-center gap-1.5">
-                              <MapPin size={13} />
-                              {cls.location}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Right — price + CTA */}
-                        <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-1">
-                          <span className="font-display text-xl text-white">£{cls.fixedPrice}</span>
-                          {isFull && cls.allowWaitlist ? (
-                            <a
-                              href={cls.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-amber-400 text-amber-600 hover:bg-amber-50 transition-all duration-200 whitespace-nowrap"
-                            >
-                              Join Waitlist
-                            </a>
-                          ) : isFull ? (
-                            <span className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-gray-200 text-gray-300 cursor-not-allowed whitespace-nowrap">
-                              Full
-                            </span>
-                          ) : (
-                            <a
-                              href={cls.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200 whitespace-nowrap"
-                            >
-                              Book Now
-                            </a>
-                          )}
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </AnimatePresence>
-              </div>
-            </div>
-          ))}
         </div>
+
+        {/* Calendar view — Momence widget (always in DOM so script can find it) */}
+        <div id="ribbon-schedule" className={view === "calendar" ? "min-h-[600px]" : "hidden"} />
+
+        {/* List view */}
+        {view === "list" && (
+          <>
+            {error && (
+              <p className="text-center text-white/40 py-16">{error}</p>
+            )}
+
+            {!error && filtered.length === 0 && (
+              <div className="text-center py-20 text-gray-400">
+                <p className="font-display text-2xl mb-2">No upcoming classes</p>
+                <p className="text-sm text-white/40">Check back soon</p>
+              </div>
+            )}
+
+            <div className="space-y-10">
+              {Object.entries(grouped).map(([day, dayEvents]) => (
+                <div key={day}>
+                  <h2 className="font-display text-xl mb-4 text-forest">{formatDay(dayEvents[0].dateTime)}</h2>
+                  <div className="space-y-3">
+                    <AnimatePresence>
+                      {dayEvents.map((cls, i) => {
+                        const isFull = cls.spotsRemaining === 0;
+                        return (
+                          <motion.div
+                            key={cls.id}
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.35, delay: i * 0.05 }}
+                            className="bg-cream-200 border border-white/5 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-forest/30 hover:shadow-sm transition-all duration-200"
+                          >
+                            {/* Left info */}
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                <span className={`text-xs px-2.5 py-1 font-medium rounded-full ${levelColor[cls.title] ?? "bg-sand text-forest"}`}>
+                                  {cls.title}
+                                </span>
+                                {isFull && (
+                                  <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-red-50 text-red-500">Full</span>
+                                )}
+                                {!isFull && cls.spotsRemaining <= 2 && (
+                                  <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-amber-50 text-amber-600">
+                                    {cls.spotsRemaining} spot{cls.spotsRemaining !== 1 ? "s" : ""} left
+                                  </span>
+                                )}
+                              </div>
+
+                              <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/50">
+                                <span className="flex items-center gap-1.5">
+                                  <Clock size={13} />
+                                  {formatTime(cls.dateTime)} · {cls.duration} min
+                                </span>
+                                {cls.teacher && (
+                                  <span className="flex items-center gap-1.5">
+                                    <Users size={13} />
+                                    {cls.teacher}
+                                  </span>
+                                )}
+                                <span className="flex items-center gap-1.5">
+                                  <MapPin size={13} />
+                                  {cls.location}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Right — price + CTA */}
+                            <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-1">
+                              <span className="font-display text-xl text-white">£{cls.fixedPrice}</span>
+                              {isFull && cls.allowWaitlist ? (
+                                <a
+                                  href={cls.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-amber-400 text-amber-600 hover:bg-amber-50 transition-all duration-200 whitespace-nowrap"
+                                >
+                                  Join Waitlist
+                                </a>
+                              ) : isFull ? (
+                                <span className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-gray-200 text-gray-300 cursor-not-allowed whitespace-nowrap">
+                                  Full
+                                </span>
+                              ) : (
+                                <a
+                                  href={cls.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200 whitespace-nowrap"
+                                >
+                                  Book Now
+                                </a>
+                              )}
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
