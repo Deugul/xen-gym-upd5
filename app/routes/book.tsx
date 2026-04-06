@@ -79,20 +79,32 @@ export default function BookPage() {
   const scriptRef = useRef<HTMLScriptElement | null>(null);
 
   useEffect(() => {
-    if (scriptRef.current) return;
-    const script = document.createElement("script");
-    script.src = "https://momence.com/plugin/host-schedule/host-schedule.js";
-    script.type = "module";
-    script.async = true;
-    script.setAttribute("host_id", "230727");
-    script.setAttribute("teacher_ids", "[]");
-    script.setAttribute("location_ids", "[]");
-    script.setAttribute("tag_ids", "[]");
-    script.setAttribute("default_filter", "show-all");
-    script.setAttribute("locale", "en");
-    document.body.appendChild(script);
-    scriptRef.current = script;
-  }, []);
+    if (view !== "calendar") return;
+
+    // Remove previous instance so the widget re-initialises into the visible div
+    if (scriptRef.current) {
+      scriptRef.current.remove();
+      scriptRef.current = null;
+    }
+
+    // Wait one tick for React to paint the visible div before injecting the script
+    const timer = setTimeout(() => {
+      const script = document.createElement("script");
+      script.src = "https://momence.com/plugin/host-schedule/host-schedule.js";
+      script.type = "module";
+      script.async = true;
+      script.setAttribute("host_id", "230727");
+      script.setAttribute("teacher_ids", "[]");
+      script.setAttribute("location_ids", "[]");
+      script.setAttribute("tag_ids", "[]");
+      script.setAttribute("default_filter", "show-all");
+      script.setAttribute("locale", "en");
+      document.body.appendChild(script);
+      scriptRef.current = script;
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [view]);
 
   const classTabOrder = ["Multi Level", "Beginner", "Intermediate"];
   const hostOrder = ["Umme H", "Aisha S", "Shazia A"];
@@ -199,8 +211,8 @@ export default function BookPage() {
           </div>
         </div>
 
-        {/* Calendar view — Momence widget (always in DOM so script can find it) */}
-        <div id="ribbon-schedule" className={view === "calendar" ? "min-h-[600px]" : "hidden"} />
+        {/* Calendar view — Momence widget */}
+        {view === "calendar" && <div id="ribbon-schedule" className="min-h-[600px]" />}
 
         {/* List view */}
         {view === "list" && (
