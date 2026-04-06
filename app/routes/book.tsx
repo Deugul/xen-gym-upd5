@@ -107,7 +107,7 @@ export default function BookPage() {
       observerRef.current = observer;
 
       const script = document.createElement("script");
-      script.src = "https://momence.com/plugin/host-schedule/host-schedule.js";
+      script.src = `https://momence.com/plugin/host-schedule/host-schedule.js?t=${Date.now()}`;
       script.type = "module";
       script.async = true;
       script.setAttribute("host_id", "230727");
