@@ -98,6 +98,7 @@ export default function BookPage() {
       script.setAttribute("location_ids", "[]");
       script.setAttribute("tag_ids", "[]");
       script.setAttribute("default_filter", "show-all");
+      script.setAttribute("default_view", "month");
       script.setAttribute("locale", "en");
       document.body.appendChild(script);
       scriptRef.current = script;
@@ -138,9 +139,9 @@ export default function BookPage() {
 
       {/* Filters + toggle bar */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-3 overflow-x-auto">
           {view === "list" && (
-            <div className="flex gap-2 flex-wrap flex-1">
+            <div className="flex gap-2 flex-nowrap flex-1">
               <button
                 onClick={() => { setActiveFilter("All"); setActiveHost("All"); }}
                 className={`px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 ${
@@ -205,7 +206,7 @@ export default function BookPage() {
 
       {/* Calendar view — full width Momence widget */}
       {view === "calendar" && (
-        <div id="ribbon-schedule" className="w-full px-4 sm:px-6 lg:px-8 pb-10" />
+        <div id="ribbon-schedule" className="w-full px-4 sm:px-6 lg:px-8 pb-10 min-h-screen" />
       )}
 
       {/* List view */}
