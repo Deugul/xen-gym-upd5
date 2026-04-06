@@ -139,10 +139,13 @@ export default function BookPage() {
 
       {/* Filters + toggle bar */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
-        <div className="flex items-center gap-3">
-          {/* Filters — scrollable, takes remaining space */}
+        <div className="flex items-center gap-3 w-full">
+          {/* Filters — scrollable, hidden scrollbar */}
           {view === "list" && (
-            <div className="flex gap-2 flex-nowrap overflow-x-auto flex-1 pb-1 scrollbar-hide">
+            <div
+              className="flex gap-2 flex-nowrap flex-1 overflow-x-auto"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
               <button
                 onClick={() => { setActiveFilter("All"); setActiveHost("All"); }}
                 className={`whitespace-nowrap px-4 py-2 text-sm font-medium tracking-wide border rounded-xl transition-all duration-200 shrink-0 ${
@@ -181,8 +184,10 @@ export default function BookPage() {
               ))}
             </div>
           )}
-          {/* Toggle — always pinned to the right */}
-          <div className="ml-auto flex items-center gap-1 bg-cream-200 border border-white/10 rounded-xl p-1 shrink-0">
+          {/* Spacer so toggle always stays right when no filters */}
+          {view === "calendar" && <div className="flex-1" />}
+          {/* Toggle — pinned right */}
+          <div className="shrink-0 flex items-center gap-1 bg-cream-200 border border-white/10 rounded-xl p-1">
             <button
               onClick={() => setView("list")}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
