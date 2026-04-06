@@ -91,19 +91,28 @@ export default function BookPage() {
 
     const timer = setTimeout(() => {
       const scheduleDiv = document.getElementById("ribbon-schedule");
-      if (!scheduleDiv || !scheduleDiv.parentElement) return;
+      if (!scheduleDiv) return;
 
-      // Track every node Momence adds as a sibling so we can remove them later
+      // Momence appends its widget elements to document.body.
+      // Watch body, move each new node into #ribbon-schedule so it appears in the right place.
       const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
           mutation.addedNodes.forEach((node) => {
-            if (node instanceof Element && node.id !== "ribbon-schedule") {
-              momenceNodesRef.current.push(node);
+            if (
+              node instanceof HTMLElement &&
+              node.id !== "ribbon-schedule" &&
+              !node.hasAttribute("src") // ignore script tags
+            ) {
+              const target = document.getElementById("ribbon-schedule");
+              if (target) {
+                target.appendChild(node);
+                momenceNodesRef.current.push(node);
+              }
             }
           });
         }
       });
-      observer.observe(scheduleDiv.parentElement, { childList: true });
+      observer.observe(document.body, { childList: true });
       observerRef.current = observer;
 
       const script = document.createElement("script");
@@ -117,7 +126,7 @@ export default function BookPage() {
       script.setAttribute("default_filter", "show-all");
       script.setAttribute("default_view", "month");
       script.setAttribute("locale", "en");
-      scheduleDiv.insertAdjacentElement("afterend", script);
+      document.body.appendChild(script);
       scriptRef.current = script;
     }, 50);
 
@@ -229,7 +238,7 @@ export default function BookPage() {
 
       {/* Calendar view — Momence widget mounts here; script inserted as next sibling */}
       {view === "calendar" && (
-        <div id="ribbon-schedule" />
+        <div id="ribbon-schedule" className="w-full min-h-[80vh]" />
       )}
 
       {/* List view */}
