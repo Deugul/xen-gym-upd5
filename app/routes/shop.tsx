@@ -51,7 +51,7 @@ const STOREFRONT_QUERY = `
 
 export async function loader() {
   const domain = "xen-pilates.myshopify.com";
-  const token = process.env.SHOPIFY_STOREFRONT_TOKEN ?? "3c0a2956e0062683a962dd9b3e893b7c";
+  const token = process.env.SHOPIFY_STOREFRONT_TOKEN ?? "";
 
   try {
     const res = await fetch(`https://${domain}/api/2024-01/graphql.json`, {
