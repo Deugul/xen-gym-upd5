@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { ShoppingBag } from "lucide-react";
+import { shopify, PRODUCTS_QUERY } from "~/lib/shopify.server";
 
 export const meta: MetaFunction = () => [
   { title: "Shop — XEN Studio" },
@@ -24,52 +25,23 @@ interface ShopifyProduct {
   };
 }
 
-const STOREFRONT_QUERY = `
-  {
-    products(first: 24, sortKey: CREATED_AT, reverse: true) {
-      edges {
-        node {
-          id
-          title
-          handle
-          description
-          onlineStoreUrl
-          priceRange {
-            minVariantPrice { amount currencyCode }
-          }
-          images(first: 1) {
-            edges { node { url altText } }
-          }
-          variants(first: 1) {
-            edges { node { id availableForSale } }
-          }
-        }
-      }
-    }
-  }
-`;
-
 export async function loader() {
-  const domain = "xen-pilates.myshopify.com";
-  const token = process.env.SHOPIFY_STOREFRONT_TOKEN ?? "";
-
   try {
-    const res = await fetch(`https://${domain}/api/2024-01/graphql.json`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": token,
-      },
-      body: JSON.stringify({ query: STOREFRONT_QUERY }),
+    const { data, errors } = await shopify.request(PRODUCTS_QUERY, {
+      variables: { first: 24 },
     });
 
-    const json = await res.json();
-    const products: ShopifyProduct[] = json?.data?.products?.edges?.map(
-      (e: { node: ShopifyProduct }) => e.node
-    ) ?? [];
+    if (errors) {
+      console.error("Shopify errors:", errors);
+      return { products: [] as ShopifyProduct[], error: "Unable to load products" };
+    }
+
+    const products: ShopifyProduct[] =
+      data?.products?.edges?.map((e: { node: ShopifyProduct }) => e.node) ?? [];
 
     return { products, error: null };
-  } catch {
+  } catch (err) {
+    console.error("Shopify fetch error:", err);
     return { products: [] as ShopifyProduct[], error: "Unable to load products" };
   }
 }
@@ -121,7 +93,6 @@ export default function ShopPage() {
                   rel="noopener noreferrer"
                   className="group flex flex-col bg-cream-200 border border-white/5 rounded-2xl overflow-hidden hover:border-forest/30 transition-all duration-200"
                 >
-                  {/* Image */}
                   <div className="aspect-square bg-white/5 overflow-hidden">
                     {image ? (
                       <img
@@ -136,7 +107,6 @@ export default function ShopPage() {
                     )}
                   </div>
 
-                  {/* Info */}
                   <div className="p-4 flex flex-col flex-1 gap-2">
                     <p className="text-white text-sm font-medium leading-snug line-clamp-2">
                       {product.title}
