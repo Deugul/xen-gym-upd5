@@ -99,15 +99,10 @@ export default function ShopPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        {error && (
-          <p className="text-center text-white/40 py-20">{error}</p>
-        )}
-
-        {!error && products.length === 0 && (
+        {(error || products.length === 0) && (
           <div className="text-center py-32">
-            <p className="text-xs tracking-widest uppercase text-white/40 mb-4">Shop</p>
-            <h2 className="font-display text-5xl md:text-6xl text-white mb-4">Coming Soon</h2>
-            <p className="text-white/50 text-sm">Our shop is on its way. Check back soon.</p>
+            <ShoppingBag size={40} className="mx-auto text-white/20 mb-6" />
+            <p className="text-white/40 text-sm">No products available right now. Check back soon.</p>
           </div>
         )}
 
