@@ -20,7 +20,8 @@ export async function loader() {
     return { products, error: null };
   } catch (err) {
     console.error("Shop loader error:", err);
-    return { products: [] as ShopifyProduct[], error: "Unable to load products" };
+    const msg = err instanceof Error ? err.message : String(err);
+    return { products: [] as ShopifyProduct[], error: msg };
   }
 }
 
@@ -145,6 +146,7 @@ export default function ShopPage() {
           <div className="text-center py-32">
             <ShoppingBag size={40} className="mx-auto text-white/20 mb-6" />
             <p className="text-white/40 text-sm">No products available right now. Check back soon.</p>
+            {error && <p className="text-red-400/60 text-xs mt-2">{error}</p>}
           </div>
         )}
 
