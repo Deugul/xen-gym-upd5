@@ -4,11 +4,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Navbar } from "~/components/ui/Navbar";
 import { Footer } from "~/components/ui/Footer";
 import { CartDrawer } from "~/components/ui/CartDrawer";
+import { authenticator } from "~/auth.server";
 import stylesheet from "~/styles/global.css?url";
 
 export const links: LinksFunction = () => [
@@ -17,7 +19,13 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request);
+  return { user };
+};
+
 export default function App() {
+  const { user } = useLoaderData<typeof loader>();
   return (
     <html lang="en" className="scroll-smooth" style={{ backgroundColor: "#0A0A0A" }}>
       <head>
@@ -27,7 +35,7 @@ export default function App() {
         <Links />
       </head>
       <body className="min-h-screen flex flex-col bg-cream">
-        <Navbar />
+        <Navbar user={user} />
         <main className="flex-1">
           <Outlet />
         </main>

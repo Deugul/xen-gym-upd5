@@ -1,9 +1,13 @@
-import { NavLink } from "@remix-run/react";
+import { NavLink, Form } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X, User } from "lucide-react";
 import { Logo } from "./Logo";
 import { useCartStore } from "~/store/cart";
+
+interface NavbarProps {
+  user?: { name: string; picture: string | null } | null;
+}
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -14,7 +18,7 @@ const navLinks = [
   { to: "/faq", label: "FAQ" },
 ];
 
-export function Navbar() {
+export function Navbar({ user }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { cart, openCart } = useCartStore();
@@ -79,6 +83,24 @@ export function Navbar() {
                 )}
               </button>
 
+              {/* Profile */}
+              {user ? (
+                <NavLink to="/profile" className="hidden lg:flex items-center gap-2 text-white/70 hover:text-forest transition-colors" aria-label="My Profile">
+                  {user.picture ? (
+                    <img src={user.picture} alt={user.name} className="w-7 h-7 rounded-full object-cover border border-white/20" />
+                  ) : (
+                    <User size={20} />
+                  )}
+                </NavLink>
+              ) : (
+                <Form method="post" action="/auth/google" className="hidden lg:block">
+                  <button type="submit" className="flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg border border-white/20 text-white/60 hover:border-forest hover:text-forest transition-all">
+                    <User size={13} />
+                    Sign in
+                  </button>
+                </Form>
+              )}
+
               {/* Mobile menu toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -117,6 +139,17 @@ export function Navbar() {
                     {link.label}
                   </NavLink>
                 ))}
+                {user ? (
+                  <NavLink to="/profile" onClick={() => setMobileOpen(false)} className="py-3 px-2 text-sm font-medium tracking-wide text-forest flex items-center gap-2">
+                    <User size={14} /> My Profile
+                  </NavLink>
+                ) : (
+                  <Form method="post" action="/auth/google">
+                    <button type="submit" className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2">
+                      <User size={14} /> Sign in with Google
+                    </button>
+                  </Form>
+                )}
               </nav>
             </motion.div>
           )}
