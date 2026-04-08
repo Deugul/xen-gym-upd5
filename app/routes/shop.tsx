@@ -134,7 +134,7 @@ export default function ShopPage() {
           <div className="flex justify-end mb-6">
             <button
               onClick={() => setCartOpen(true)}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-forest text-forest text-sm font-medium hover:bg-forest hover:text-black transition-all duration-200"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-forest text-forest text-sm font-medium hover:bg-forest hover:text-white transition-all duration-200"
             >
               <ShoppingCart size={15} />
               Cart ({totalItems}) · {formatPrice(totalPrice.toString(), currencyCode)}
@@ -205,7 +205,7 @@ export default function ShopPage() {
                       {available && firstVariant ? (
                         <button
                           onClick={() => addToCart(product, firstVariant)}
-                          className="text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200 whitespace-nowrap"
+                          className="text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg border border-forest text-forest hover:bg-forest hover:text-white transition-all duration-200 whitespace-nowrap"
                         >
                           Add
                         </button>
