@@ -2,8 +2,12 @@ import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { ShoppingBag, X, Plus, Minus, ShoppingCart } from "lucide-react";
-import { fetchProducts, gidToId } from "~/lib/shopify.server";
+import { fetchProducts } from "~/lib/shopify.server";
 import type { ShopifyProduct, ShopifyVariant } from "~/lib/shopify.server";
+
+function gidToId(gid: string): string {
+  return gid.split("/").pop() ?? gid;
+}
 
 export const meta: MetaFunction = () => [
   { title: "Shop — XEN Studio" },
