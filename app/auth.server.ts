@@ -12,7 +12,9 @@ export interface UserProfile {
 export const authenticator = new Authenticator<UserProfile>(sessionStorage);
 
 const callbackURL =
-  process.env.NODE_ENV === "production"
+  process.env.APP_URL
+    ? `${process.env.APP_URL}/auth/google/callback`
+    : process.env.NODE_ENV === "production"
     ? "https://xen-gym-upd5.vercel.app/auth/google/callback"
     : "http://localhost:5173/auth/google/callback";
 
