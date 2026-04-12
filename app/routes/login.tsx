@@ -85,9 +85,9 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <h1 className="font-display text-2xl text-white text-center mb-2">Sign In</h1>
+        <h1 className="font-display text-2xl text-white text-center mb-2">Booking History</h1>
         <p className="text-white/40 text-sm text-center mb-8">
-          Enter the email you use to book classes at XEN Studio.
+          Enter the email you use on Momence to view your past bookings.
         </p>
 
         <Form method="post" className="space-y-4">
@@ -116,7 +116,15 @@ export default function LoginPage() {
         </Form>
 
         <p className="text-white/25 text-xs text-center mt-6">
-          No password needed — we verify your membership via Momence.
+          New to XEN?{" "}
+          <a
+            href="https://momence.com/sign-in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/40 hover:text-white/60 underline underline-offset-2 transition-colors"
+          >
+            Sign in with Momence
+          </a>
         </p>
       </div>
     </div>

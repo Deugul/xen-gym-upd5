@@ -93,10 +93,24 @@ export function Navbar({ user }: NavbarProps) {
                   )}
                 </NavLink>
               ) : (
-                <NavLink to="/login" className="hidden lg:flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg border border-white/20 text-white/60 hover:border-forest hover:text-forest transition-all">
-                  <User size={13} />
-                  Sign in
-                </NavLink>
+                <div className="hidden lg:flex items-center gap-2">
+                  <a
+                    href="https://momence.com/sign-in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg bg-forest text-white hover:bg-forest/80 transition-all"
+                  >
+                    <User size={13} />
+                    Sign in
+                  </a>
+                  <NavLink
+                    to="/login"
+                    className="text-xs text-white/40 hover:text-white/70 transition-colors"
+                    title="Check booking history"
+                  >
+                    My bookings
+                  </NavLink>
+                </div>
               )}
 
               {/* Mobile menu toggle */}
@@ -142,9 +156,24 @@ export function Navbar({ user }: NavbarProps) {
                     <User size={14} /> My Profile
                   </NavLink>
                 ) : (
-                  <NavLink to="/login" onClick={() => setMobileOpen(false)} className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2">
-                    <User size={14} /> Sign in
-                  </NavLink>
+                  <>
+                    <a
+                      href="https://momence.com/sign-in"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileOpen(false)}
+                      className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2 border-b border-sand/50"
+                    >
+                      <User size={14} /> Sign in
+                    </a>
+                    <NavLink
+                      to="/login"
+                      onClick={() => setMobileOpen(false)}
+                      className="py-3 px-2 text-xs text-white/40 hover:text-white/60 transition-colors"
+                    >
+                      Check booking history
+                    </NavLink>
+                  </>
                 )}
               </nav>
             </motion.div>
