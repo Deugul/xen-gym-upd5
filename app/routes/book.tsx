@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Users, MapPin, List, CalendarDays, ChevronDown, ChevronUp, SlidersHorizontal, X } from "lucide-react";
 
@@ -33,12 +33,10 @@ export async function loader() {
       `https://momence.com/_api/primary/api/v1/Events?hostId=${hostId}&token=${token}`
     );
     const data: MomenceEvent[] = await res.json();
-
     const now = new Date();
     const events = data
       .filter((e) => !e.isCancelled && new Date(e.dateTime) >= now)
       .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
-
     return { events, error: null };
   } catch {
     return { events: [] as MomenceEvent[], error: "Unable to load classes" };
@@ -46,12 +44,18 @@ export async function loader() {
 }
 
 function formatDay(dateStr: string) {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  return new Date(dateStr).toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
 }
 
 function formatTime(dateStr: string) {
-  return new Date(dateStr).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  return new Date(dateStr).toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function groupByDay(events: MomenceEvent[]) {
@@ -79,7 +83,46 @@ function matchesHost(teacher: string | null, host: string) {
   return (teacher ?? "").startsWith(firstName) && (teacher ?? "").includes(lastInitial);
 }
 
-function FilterPanel({
+/* ── Shared checkbox row ── */
+function CheckRow({
+  label,
+  count,
+  checked,
+  onToggle,
+}: {
+  label: string;
+  count: number;
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      onClick={onToggle}
+      className="w-full flex items-center justify-between py-2.5 px-1 group"
+    >
+      <div className="flex items-center gap-3">
+        <div
+          className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 transition-all ${
+            checked ? "bg-forest border-forest" : "border-white/20 group-hover:border-white/40"
+          }`}
+        >
+          {checked && (
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+              <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
+        </div>
+        <span className={`text-sm transition-colors ${checked ? "text-white" : "text-white/55 group-hover:text-white/80"}`}>
+          {label}
+        </span>
+      </div>
+      <span className="text-xs text-white/25">{count}</span>
+    </button>
+  );
+}
+
+/* ── Filter content (shared between sidebar and bottom sheet) ── */
+function FilterContent({
   events,
   selectedLevels,
   setSelectedLevels,
@@ -94,61 +137,48 @@ function FilterPanel({
 }) {
   const [openSections, setOpenSections] = useState<string[]>(["Level", "Host"]);
 
-  function toggleSection(section: string) {
+  function toggleSection(s: string) {
     setOpenSections((prev) =>
-      prev.includes(section) ? prev.filter((s) => s !== section) : [...prev, section]
+      prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
     );
   }
-
-  function toggleLevel(level: string) {
-    setSelectedLevels(
-      selectedLevels.includes(level)
-        ? selectedLevels.filter((l) => l !== level)
-        : [...selectedLevels, level]
-    );
-  }
-
-  function toggleHost(host: string) {
-    setSelectedHosts(
-      selectedHosts.includes(host)
-        ? selectedHosts.filter((h) => h !== host)
-        : [...selectedHosts, host]
-    );
-  }
-
-  const countForLevel = (level: string) =>
-    events.filter((e) => e.title.trim() === level).length;
-
-  const countForHost = (host: string) =>
-    events.filter((e) => matchesHost(e.teacher, host)).length;
 
   const sections = [
     {
       key: "Level",
       options: LEVELS,
       selected: selectedLevels,
-      toggle: toggleLevel,
-      count: countForLevel,
+      toggle: (v: string) =>
+        setSelectedLevels(
+          selectedLevels.includes(v)
+            ? selectedLevels.filter((l) => l !== v)
+            : [...selectedLevels, v]
+        ),
+      count: (v: string) => events.filter((e) => e.title.trim() === v).length,
     },
     {
       key: "Host",
       options: HOSTS,
       selected: selectedHosts,
-      toggle: toggleHost,
-      count: countForHost,
+      toggle: (v: string) =>
+        setSelectedHosts(
+          selectedHosts.includes(v)
+            ? selectedHosts.filter((h) => h !== v)
+            : [...selectedHosts, v]
+        ),
+      count: (v: string) => events.filter((e) => matchesHost(e.teacher, v)).length,
     },
   ];
 
   return (
-    <div className="w-56 shrink-0 space-y-1">
+    <div className="space-y-1">
       {sections.map(({ key, options, selected, toggle, count }) => {
         const isOpen = openSections.includes(key);
         return (
-          <div key={key} className="bg-cream-200 border border-white/5 rounded-2xl overflow-hidden">
-            {/* Section header */}
+          <div key={key} className="bg-white/5 rounded-xl overflow-hidden">
             <button
               onClick={() => toggleSection(key)}
-              className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-white/80 hover:text-white transition-colors"
+              className="w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium text-white/80 hover:text-white transition-colors"
             >
               <span className="tracking-wide">{key}</span>
               <div className="flex items-center gap-2">
@@ -157,55 +187,33 @@ function FilterPanel({
                     {selected.length}
                   </span>
                 )}
-                {isOpen ? <ChevronUp size={14} className="text-white/40" /> : <ChevronDown size={14} className="text-white/40" />}
+                {isOpen ? (
+                  <ChevronUp size={14} className="text-white/40" />
+                ) : (
+                  <ChevronDown size={14} className="text-white/40" />
+                )}
               </div>
             </button>
 
-            {/* Subcategory checkboxes */}
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.18 }}
                   className="overflow-hidden border-t border-white/5"
                 >
-                  <div className="px-4 py-2 space-y-1">
-                    {options.map((opt) => {
-                      const checked = selected.includes(opt);
-                      return (
-                        <label
-                          key={opt}
-                          className="flex items-center justify-between py-1.5 cursor-pointer group"
-                        >
-                          <div className="flex items-center gap-3">
-                            {/* Custom checkbox */}
-                            <div
-                              onClick={() => toggle(opt)}
-                              className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${
-                                checked
-                                  ? "bg-forest border-forest"
-                                  : "border-white/20 group-hover:border-white/40"
-                              }`}
-                            >
-                              {checked && (
-                                <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                  <path d="M1 3.5L3.5 6L8 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                              )}
-                            </div>
-                            <span
-                              onClick={() => toggle(opt)}
-                              className={`text-sm transition-colors ${checked ? "text-white" : "text-white/50 group-hover:text-white/70"}`}
-                            >
-                              {opt}
-                            </span>
-                          </div>
-                          <span className="text-xs text-white/25 ml-2">{count(opt)}</span>
-                        </label>
-                      );
-                    })}
+                  <div className="px-3 py-1">
+                    {options.map((opt) => (
+                      <CheckRow
+                        key={opt}
+                        label={opt}
+                        count={count(opt)}
+                        checked={selected.includes(opt)}
+                        onToggle={() => toggle(opt)}
+                      />
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -214,19 +222,115 @@ function FilterPanel({
         );
       })}
 
-      {/* Clear filters */}
       {(selectedLevels.length > 0 || selectedHosts.length > 0) && (
         <button
           onClick={() => { setSelectedLevels([]); setSelectedHosts([]); }}
-          className="w-full flex items-center justify-center gap-1.5 py-2 text-xs text-white/40 hover:text-white/70 transition-colors"
+          className="w-full flex items-center justify-center gap-1.5 py-2.5 text-xs text-white/40 hover:text-white/70 transition-colors"
         >
-          <X size={11} /> Clear filters
+          <X size={11} /> Clear all filters
         </button>
       )}
     </div>
   );
 }
 
+/* ── Mobile bottom-sheet filter ── */
+function MobileFilterSheet({
+  open,
+  onClose,
+  events,
+  selectedLevels,
+  setSelectedLevels,
+  selectedHosts,
+  setSelectedHosts,
+  activeFilterCount,
+}: {
+  open: boolean;
+  onClose: () => void;
+  events: MomenceEvent[];
+  selectedLevels: string[];
+  setSelectedLevels: (v: string[]) => void;
+  selectedHosts: string[];
+  setSelectedHosts: (v: string[]) => void;
+  activeFilterCount: number;
+}) {
+  // Lock body scroll while sheet is open
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+            onClick={onClose}
+          />
+
+          {/* Sheet */}
+          <motion.div
+            key="sheet"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="fixed bottom-0 inset-x-0 z-50 bg-[#141414] rounded-t-3xl border-t border-white/10 pb-safe"
+          >
+            {/* Handle */}
+            <div className="flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1 rounded-full bg-white/20" />
+            </div>
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-3 border-b border-white/5">
+              <span className="font-display text-lg text-white">Filter Classes</span>
+              <button
+                onClick={onClose}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                <X size={16} className="text-white/60" />
+              </button>
+            </div>
+
+            {/* Scrollable content */}
+            <div className="px-4 py-4 overflow-y-auto max-h-[60vh]">
+              <FilterContent
+                events={events}
+                selectedLevels={selectedLevels}
+                setSelectedLevels={setSelectedLevels}
+                selectedHosts={selectedHosts}
+                setSelectedHosts={setSelectedHosts}
+              />
+            </div>
+
+            {/* Apply button */}
+            <div className="px-4 pb-6 pt-3 border-t border-white/5">
+              <button
+                onClick={onClose}
+                className="w-full py-3.5 rounded-2xl bg-forest text-white font-medium tracking-wide text-sm hover:bg-forest/80 transition-colors"
+              >
+                {activeFilterCount > 0
+                  ? `Show results (${activeFilterCount} filter${activeFilterCount > 1 ? "s" : ""})`
+                  : "Show all classes"}
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ── Main page ── */
 export default function BookPage() {
   const { events, error } = useLoaderData<typeof loader>();
   const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
@@ -236,8 +340,7 @@ export default function BookPage() {
 
   const filtered = events.filter((e: MomenceEvent) => {
     const levelOk = selectedLevels.length === 0 || selectedLevels.includes(e.title.trim());
-    const hostOk =
-      selectedHosts.length === 0 || selectedHosts.some((h) => matchesHost(e.teacher, h));
+    const hostOk = selectedHosts.length === 0 || selectedHosts.some((h) => matchesHost(e.teacher, h));
     return levelOk && hostOk;
   });
 
@@ -247,34 +350,34 @@ export default function BookPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2.5rem] mx-2 mt-2">
+      <section className="relative h-52 sm:h-64 flex items-center justify-center bg-cream overflow-hidden rounded-b-[2rem] sm:rounded-b-[2.5rem] mx-2 mt-2">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url('/hero-book.jpg')" }}
         />
         <div className="relative z-10 text-center text-white px-4">
           <p className="text-xs tracking-widest uppercase text-white/60 mb-2">XEN Studio</p>
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl">Book a Class</h1>
+          <h1 className="font-display text-3xl sm:text-5xl md:text-6xl">Book a Class</h1>
         </div>
       </section>
 
-      {/* Top bar: Filter toggle + view switch */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      {/* Top bar */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
         <div className="flex items-center justify-between gap-3">
-          {/* Filter button (mobile + desktop toggle) */}
+          {/* Filter button */}
           {view === "list" && (
             <button
               onClick={() => setFilterOpen((v) => !v)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all ${
                 activeFilterCount > 0
                   ? "border-forest text-forest bg-forest/10"
                   : "border-white/10 text-white/50 hover:border-white/30 hover:text-white/70"
               }`}
             >
-              <SlidersHorizontal size={14} />
-              Filter
+              <SlidersHorizontal size={15} />
+              <span>Filter</span>
               {activeFilterCount > 0 && (
-                <span className="bg-forest text-white text-xs px-1.5 py-0.5 rounded-full">
+                <span className="bg-forest text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-medium">
                   {activeFilterCount}
                 </span>
               )}
@@ -316,67 +419,51 @@ export default function BookPage() {
         />
       )}
 
-      {/* List view: sidebar + cards */}
+      {/* List view */}
       {view === "list" && (
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="flex gap-6 items-start">
-            {/* Filter sidebar */}
-            <AnimatePresence>
-              {filterOpen && (
-                <motion.div
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -12 }}
-                  transition={{ duration: 0.2 }}
-                  className="hidden sm:block"
-                >
-                  <FilterPanel
-                    events={events}
-                    selectedLevels={selectedLevels}
-                    setSelectedLevels={setSelectedLevels}
-                    selectedHosts={selectedHosts}
-                    setSelectedHosts={setSelectedHosts}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
 
-            {/* Mobile filter dropdown */}
+            {/* Desktop sidebar filter */}
             <AnimatePresence>
               {filterOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="sm:hidden fixed inset-x-4 top-32 z-40 shadow-2xl"
+                <motion.aside
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 224 }}
+                  exit={{ opacity: 0, width: 0 }}
+                  transition={{ duration: 0.22 }}
+                  className="hidden sm:block shrink-0 overflow-hidden"
                 >
-                  <FilterPanel
-                    events={events}
-                    selectedLevels={selectedLevels}
-                    setSelectedLevels={setSelectedLevels}
-                    selectedHosts={selectedHosts}
-                    setSelectedHosts={setSelectedHosts}
-                  />
-                </motion.div>
+                  <div className="w-56">
+                    <FilterContent
+                      events={events}
+                      selectedLevels={selectedLevels}
+                      setSelectedLevels={setSelectedLevels}
+                      selectedHosts={selectedHosts}
+                      setSelectedHosts={setSelectedHosts}
+                    />
+                  </div>
+                </motion.aside>
               )}
             </AnimatePresence>
 
             {/* Class list */}
             <div className="flex-1 min-w-0">
-              {error && <p className="text-center text-white/40 py-16">{error}</p>}
+              {error && (
+                <p className="text-center text-white/40 py-16">{error}</p>
+              )}
 
               {!error && filtered.length === 0 && (
-                <div className="text-center py-20 text-gray-400">
-                  <p className="font-display text-2xl mb-2">No classes found</p>
-                  <p className="text-sm text-white/40">Try adjusting your filters</p>
+                <div className="text-center py-20">
+                  <p className="font-display text-2xl text-white/60 mb-2">No classes found</p>
+                  <p className="text-sm text-white/30">Try adjusting your filters</p>
                 </div>
               )}
 
-              <div className="space-y-10">
+              <div className="space-y-8">
                 {Object.entries(grouped).map(([day, dayEvents]) => (
                   <div key={day}>
-                    <h2 className="font-display text-xl mb-4 text-forest">
+                    <h2 className="font-display text-lg sm:text-xl mb-3 text-forest">
                       {formatDay(dayEvents[0].dateTime)}
                     </h2>
                     <div className="space-y-3">
@@ -386,25 +473,20 @@ export default function BookPage() {
                           return (
                             <motion.div
                               key={cls.id}
-                              initial={{ opacity: 0, y: 16 }}
+                              initial={{ opacity: 0, y: 12 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0 }}
-                              transition={{ duration: 0.35, delay: i * 0.05 }}
-                              className="bg-cream-200 border border-white/5 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-forest/30 hover:shadow-sm transition-all duration-200"
+                              transition={{ duration: 0.3, delay: i * 0.04 }}
+                              className="bg-cream-200 border border-white/5 rounded-2xl p-4 sm:p-5 hover:border-forest/30 transition-all duration-200"
                             >
-                              <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                                  <span
-                                    className={`text-xs px-2.5 py-1 font-medium rounded-full ${
-                                      levelColor[cls.title] ?? "bg-sand text-forest"
-                                    }`}
-                                  >
+                              {/* Top row: badge + price */}
+                              <div className="flex items-start justify-between gap-3 mb-2">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className={`text-xs px-2.5 py-1 font-medium rounded-full ${levelColor[cls.title] ?? "bg-sand text-forest"}`}>
                                     {cls.title}
                                   </span>
                                   {isFull && (
-                                    <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-red-50 text-red-500">
-                                      Full
-                                    </span>
+                                    <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-red-50 text-red-500">Full</span>
                                   )}
                                   {!isFull && cls.spotsRemaining <= 2 && (
                                     <span className="text-xs px-2.5 py-1 font-medium rounded-full bg-amber-50 text-amber-600">
@@ -412,51 +494,51 @@ export default function BookPage() {
                                     </span>
                                   )}
                                 </div>
-                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/50">
-                                  <span className="flex items-center gap-1.5">
-                                    <Clock size={13} />
-                                    {formatTime(cls.dateTime)} · {cls.duration} min
-                                  </span>
-                                  {cls.teacher && (
-                                    <span className="flex items-center gap-1.5">
-                                      <Users size={13} />
-                                      {cls.teacher}
-                                    </span>
-                                  )}
-                                  <span className="flex items-center gap-1.5">
-                                    <MapPin size={13} />
-                                    {cls.location}
-                                  </span>
-                                </div>
+                                <span className="font-display text-xl text-white shrink-0">£{cls.fixedPrice}</span>
                               </div>
-                              <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-1">
-                                <span className="font-display text-xl text-white">
-                                  £{cls.fixedPrice}
+
+                              {/* Meta row */}
+                              <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/50 mb-4">
+                                <span className="flex items-center gap-1.5">
+                                  <Clock size={13} />
+                                  {formatTime(cls.dateTime)} · {cls.duration} min
                                 </span>
-                                {isFull && cls.allowWaitlist ? (
-                                  <a
-                                    href={cls.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-amber-400 text-amber-600 hover:bg-amber-50 transition-all duration-200 whitespace-nowrap"
-                                  >
-                                    Join Waitlist
-                                  </a>
-                                ) : isFull ? (
-                                  <span className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-gray-200 text-gray-300 cursor-not-allowed whitespace-nowrap">
-                                    Full
+                                {cls.teacher && (
+                                  <span className="flex items-center gap-1.5">
+                                    <Users size={13} />
+                                    {cls.teacher}
                                   </span>
-                                ) : (
-                                  <a
-                                    href={cls.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-xs font-medium tracking-widest uppercase px-5 py-2 rounded-lg border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200 whitespace-nowrap"
-                                  >
-                                    Book Now
-                                  </a>
                                 )}
+                                <span className="flex items-center gap-1.5">
+                                  <MapPin size={13} />
+                                  {cls.location}
+                                </span>
                               </div>
+
+                              {/* CTA — full width on mobile */}
+                              {isFull && cls.allowWaitlist ? (
+                                <a
+                                  href={cls.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block w-full text-center text-xs font-medium tracking-widest uppercase px-5 py-3 rounded-xl border border-amber-400 text-amber-600 hover:bg-amber-50 transition-all duration-200"
+                                >
+                                  Join Waitlist
+                                </a>
+                              ) : isFull ? (
+                                <div className="w-full text-center text-xs font-medium tracking-widest uppercase px-5 py-3 rounded-xl border border-white/10 text-white/20 cursor-not-allowed">
+                                  Full
+                                </div>
+                              ) : (
+                                <a
+                                  href={cls.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block w-full text-center text-xs font-medium tracking-widest uppercase px-5 py-3 rounded-xl border border-forest text-forest hover:bg-forest hover:text-black transition-all duration-200"
+                                >
+                                  Book Now
+                                </a>
+                              )}
                             </motion.div>
                           );
                         })}
@@ -469,6 +551,20 @@ export default function BookPage() {
           </div>
         </div>
       )}
+
+      {/* Mobile filter bottom sheet */}
+      <div className="sm:hidden">
+        <MobileFilterSheet
+          open={filterOpen}
+          onClose={() => setFilterOpen(false)}
+          events={events}
+          selectedLevels={selectedLevels}
+          setSelectedLevels={setSelectedLevels}
+          selectedHosts={selectedHosts}
+          setSelectedHosts={setSelectedHosts}
+          activeFilterCount={activeFilterCount}
+        />
+      </div>
     </>
   );
 }
