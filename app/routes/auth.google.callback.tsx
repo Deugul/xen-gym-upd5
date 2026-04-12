@@ -1,9 +1,4 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { authenticator } from "~/auth.server";
+import { redirect } from "@remix-run/node";
 
-export const loader: LoaderFunction = ({ request }) => {
-  return authenticator.authenticate("google", request, {
-    successRedirect: "/profile",
-    failureRedirect: "/",
-  });
-};
+export const loader: LoaderFunction = () => redirect("/login");

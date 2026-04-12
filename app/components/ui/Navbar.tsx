@@ -1,4 +1,4 @@
-import { NavLink, Form } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Menu, X, User } from "lucide-react";
@@ -93,12 +93,10 @@ export function Navbar({ user }: NavbarProps) {
                   )}
                 </NavLink>
               ) : (
-                <Form method="post" action="/auth/google" className="hidden lg:block">
-                  <button type="submit" className="flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg border border-white/20 text-white/60 hover:border-forest hover:text-forest transition-all">
-                    <User size={13} />
-                    Sign in
-                  </button>
-                </Form>
+                <NavLink to="/login" className="hidden lg:flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg border border-white/20 text-white/60 hover:border-forest hover:text-forest transition-all">
+                  <User size={13} />
+                  Sign in
+                </NavLink>
               )}
 
               {/* Mobile menu toggle */}
@@ -144,11 +142,9 @@ export function Navbar({ user }: NavbarProps) {
                     <User size={14} /> My Profile
                   </NavLink>
                 ) : (
-                  <Form method="post" action="/auth/google">
-                    <button type="submit" className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2">
-                      <User size={14} /> Sign in with Google
-                    </button>
-                  </Form>
+                  <NavLink to="/login" onClick={() => setMobileOpen(false)} className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2">
+                    <User size={14} /> Sign in
+                  </NavLink>
                 )}
               </nav>
             </motion.div>

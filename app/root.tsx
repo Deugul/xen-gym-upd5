@@ -10,7 +10,7 @@ import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Navbar } from "~/components/ui/Navbar";
 import { Footer } from "~/components/ui/Footer";
 import { CartDrawer } from "~/components/ui/CartDrawer";
-import { authenticator } from "~/auth.server";
+import { getUserFromSession } from "~/auth.server";
 import stylesheet from "~/styles/global.css?url";
 
 export const links: LinksFunction = () => [
@@ -20,7 +20,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request);
+  const user = await getUserFromSession(request);
   return { user };
 };
 
