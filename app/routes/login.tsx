@@ -118,7 +118,7 @@ export default function LoginPage() {
         <p className="text-white/25 text-xs text-center mt-6">
           New to XEN?{" "}
           <a
-            href="https://momence.com/sign-in"
+            href="https://momence.com/sign-up/visitor"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/40 hover:text-white/60 underline underline-offset-2 transition-colors"
