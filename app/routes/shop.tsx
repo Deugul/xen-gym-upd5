@@ -150,6 +150,58 @@ export default function ShopPage() {
           </div>
         )}
 
+        {/* Gift Cards */}
+        <div className="mb-12 sm:mb-16">
+          <div className="flex items-baseline gap-3 mb-6">
+            <h2 className="font-display text-2xl sm:text-3xl text-white">Gift Cards</h2>
+            <span className="text-white/30 text-sm">Give the gift of movement</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+            {[
+              { label: "2 Classes", href: "https://momence.com/m/725421?g=gift" },
+              { label: "3 Classes", href: "https://momence.com/m/725422?g=gift" },
+            ].map((card) => (
+              <a
+                key={card.label}
+                href={card.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 hover:border-forest/40 transition-all duration-300 aspect-[16/9] sm:aspect-[3/2]"
+              >
+                {/* Background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] via-[#111] to-[#0a0a0a]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-forest/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Corner accent lines */}
+                <div className="absolute top-0 left-0 w-12 h-px bg-forest/40" />
+                <div className="absolute top-0 left-0 w-px h-12 bg-forest/40" />
+                <div className="absolute bottom-0 right-0 w-12 h-px bg-forest/40" />
+                <div className="absolute bottom-0 right-0 w-px h-12 bg-forest/40" />
+
+                {/* XEN logo */}
+                <div className="relative z-10 px-6 pt-6">
+                  <div className="flex flex-col leading-none">
+                    <span className="font-display text-3xl text-white tracking-tighter">XÉN</span>
+                    <span className="text-[9px] tracking-[0.35em] uppercase text-white/40 mt-0.5">Studio</span>
+                  </div>
+                </div>
+
+                {/* Bottom row */}
+                <div className="relative z-10 px-6 pb-6 flex items-end justify-between">
+                  <div>
+                    <p className="text-xs text-white/40 uppercase tracking-widest mb-1">Gift Card</p>
+                    <p className="font-display text-xl text-white">{card.label}</p>
+                  </div>
+                  <span className="text-xs font-medium tracking-widest uppercase px-4 py-2 rounded-xl border border-forest text-forest group-hover:bg-forest group-hover:text-black transition-all duration-200">
+                    Buy
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
         {products.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {products.map((product) => {
