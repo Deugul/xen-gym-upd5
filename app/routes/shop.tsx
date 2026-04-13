@@ -222,9 +222,8 @@ export default function ShopPage() {
 
         {/* Gift Cards */}
         <div className="mt-12 sm:mt-16">
-          <div className="flex items-baseline gap-3 mb-6">
+          <div className="mb-6">
             <h2 className="font-display text-2xl sm:text-3xl text-white">Gift Cards</h2>
-            <span className="text-white/30 text-sm">Give the gift of movement</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
