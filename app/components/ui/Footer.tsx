@@ -29,29 +29,6 @@ function IconSnapchat({ size = 18 }: { size?: number }) {
 export function Footer() {
   return (
     <footer className="bg-cream">
-      {/* Newsletter */}
-      <div className="border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h2 className="font-display text-3xl md:text-4xl mb-3">Ready to begin?</h2>
-          <p className="text-white/70 text-sm mb-8 max-w-md mx-auto">
-            Join the Xén community. Drop your email and we'll be in touch with everything you need to get started.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 px-5 py-3 bg-white/10 border border-white/20 text-white placeholder:text-white/50 text-sm rounded-xl focus:outline-none focus:border-white transition-colors"
-            />
-            <button
-              type="submit"
-              className="px-8 py-3 bg-white text-forest text-sm font-medium tracking-widest uppercase rounded-xl hover:bg-gray-100 transition-colors"
-            >
-              Sign up
-            </button>
-          </form>
-        </div>
-      </div>
-
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
