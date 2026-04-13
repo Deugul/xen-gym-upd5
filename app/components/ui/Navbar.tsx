@@ -1,7 +1,7 @@
 import { NavLink } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Menu, X, User } from "lucide-react";
+import { ShoppingBag, Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { useCartStore } from "~/store/cart";
 
@@ -83,14 +83,10 @@ export function Navbar({ user }: NavbarProps) {
                 )}
               </button>
 
-              {/* Profile */}
+              {/* Profile / Auth */}
               {user ? (
-                <NavLink to="/profile" className="hidden lg:flex items-center gap-2 text-white/70 hover:text-forest transition-colors" aria-label="My Profile">
-                  {user.picture ? (
-                    <img src={user.picture} alt={user.name} className="w-7 h-7 rounded-full object-cover border border-white/20" />
-                  ) : (
-                    <User size={20} />
-                  )}
+                <NavLink to="/profile" className="hidden lg:flex items-center justify-center w-8 h-8 rounded-full bg-forest/20 border border-forest/30 text-forest font-display text-sm hover:bg-forest/30 transition-all" aria-label="My Profile">
+                  {user.name[0].toUpperCase()}
                 </NavLink>
               ) : (
                 <div className="hidden lg:flex items-center gap-2">
@@ -98,9 +94,8 @@ export function Navbar({ user }: NavbarProps) {
                     href="https://momence.com/sign-in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg bg-forest text-white hover:bg-forest/80 transition-all"
+                    className="text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg bg-forest text-white hover:bg-forest/80 transition-all"
                   >
-                    <User size={13} />
                     Sign in
                   </a>
                   <a
@@ -154,7 +149,10 @@ export function Navbar({ user }: NavbarProps) {
                 ))}
                 {user ? (
                   <NavLink to="/profile" onClick={() => setMobileOpen(false)} className="py-3 px-2 text-sm font-medium tracking-wide text-forest flex items-center gap-2">
-                    <User size={14} /> My Profile
+                    <span className="w-6 h-6 rounded-full bg-forest/20 border border-forest/30 flex items-center justify-center text-xs font-display">
+                      {user.name[0].toUpperCase()}
+                    </span>
+                    My Profile
                   </NavLink>
                 ) : (
                   <>
@@ -163,18 +161,18 @@ export function Navbar({ user }: NavbarProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
-                      className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2 border-b border-sand/50"
+                      className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 border-b border-sand/50"
                     >
-                      <User size={14} /> Sign in
+                      Sign in
                     </a>
                     <a
                       href="https://momence.com/sign-up/visitor"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
-                      className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2"
+                      className="py-3 px-2 text-sm font-medium tracking-wide text-white/70"
                     >
-                      <User size={14} /> Sign up
+                      Sign up
                     </a>
                   </>
                 )}
