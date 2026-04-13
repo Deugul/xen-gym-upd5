@@ -95,7 +95,7 @@ export function Navbar({ user }: NavbarProps) {
               ) : (
                 <div className="hidden lg:flex items-center gap-2">
                   <a
-                    href="https://momence.com/sign-up/visitor"
+                    href="https://momence.com/sign-in"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase px-3 py-1.5 rounded-lg bg-forest text-white hover:bg-forest/80 transition-all"
@@ -103,13 +103,14 @@ export function Navbar({ user }: NavbarProps) {
                     <User size={13} />
                     Sign in
                   </a>
-                  <NavLink
-                    to="/login"
+                  <a
+                    href="https://momence.com/sign-up/visitor"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-xs text-white/40 hover:text-white/70 transition-colors"
-                    title="Check booking history"
                   >
-                    My bookings
-                  </NavLink>
+                    Sign up
+                  </a>
                 </div>
               )}
 
@@ -158,7 +159,7 @@ export function Navbar({ user }: NavbarProps) {
                 ) : (
                   <>
                     <a
-                      href="https://momence.com/sign-up/visitor"
+                      href="https://momence.com/sign-in"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
@@ -166,13 +167,15 @@ export function Navbar({ user }: NavbarProps) {
                     >
                       <User size={14} /> Sign in
                     </a>
-                    <NavLink
-                      to="/login"
+                    <a
+                      href="https://momence.com/sign-up/visitor"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setMobileOpen(false)}
-                      className="py-3 px-2 text-xs text-white/40 hover:text-white/60 transition-colors"
+                      className="py-3 px-2 text-sm font-medium tracking-wide text-white/70 flex items-center gap-2"
                     >
-                      Check booking history
-                    </NavLink>
+                      <User size={14} /> Sign up
+                    </a>
                   </>
                 )}
               </nav>
