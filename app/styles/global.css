@@ -124,6 +124,9 @@
 .text-forest { color: #C4963A !important; }
 .border-forest { border-color: #C4963A !important; }
 .hover\:bg-forest:hover { background-color: #C4963A !important; }
+.hover\:text-black:hover { color: #000000 !important; text-shadow: none !important; }
+.hover\:text-white:hover { color: #ffffff !important; text-shadow: none !important; }
+.group:hover .group-hover\:text-black { color: #000000 !important; text-shadow: none !important; }
 .hover\:text-forest:hover {
   color: #C4963A !important;
   text-shadow: 0 0 8px rgba(196, 150, 58, 0.65), 0 0 20px rgba(196, 150, 58, 0.25) !important;
