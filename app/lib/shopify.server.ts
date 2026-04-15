@@ -1,50 +1,5 @@
-// Admin API via OAuth 2.0 client credentials grant
-// Token expires in 24h — cached in memory and refreshed automatically
-
-interface TokenCache {
-  token: string;
-  expiresAt: number;
-}
-
-let tokenCache: TokenCache | null = null;
-
-async function getAdminToken(): Promise<string> {
-  const now = Date.now();
-
-  // Return cached token if still valid (5 min buffer before expiry)
-  if (tokenCache && tokenCache.expiresAt > now + 5 * 60 * 1000) {
-    return tokenCache.token;
-  }
-
-  const store = process.env.SHOPIFY_STORE_DOMAIN ?? "xen-pilates.myshopify.com";
-  const clientId = process.env.SHOPIFY_CLIENT_ID ?? "";
-  const clientSecret = process.env.SHOPIFY_CLIENT_SECRET ?? "";
-
-  const res = await fetch(`https://${store}/admin/oauth/access_token`, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      grant_type: "client_credentials",
-      client_id: clientId,
-      client_secret: clientSecret,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Shopify token request failed: ${res.status}`);
-  }
-
-  const data = await res.json();
-  tokenCache = {
-    token: data.access_token,
-    expiresAt: now + data.expires_in * 1000,
-  };
-
-  return tokenCache.token;
-}
-
 async function adminQuery(query: string) {
-  const token = await getAdminToken();
+  const token = process.env.SHOPIFY_ADMIN_TOKEN ?? "";
   const store = process.env.SHOPIFY_STORE_DOMAIN ?? "xen-pilates.myshopify.com";
   const version = process.env.SHOPIFY_API_VERSION ?? "2024-10";
 
