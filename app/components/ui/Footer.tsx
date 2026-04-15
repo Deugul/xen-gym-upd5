@@ -63,7 +63,7 @@ export function Footer() {
                 { to: "/shop", label: "Shop" },
                 { to: "/membership", label: "Membership" },
                 { to: "/faq", label: "FAQ" },
-                { to: "/shop/gift-cards", label: "Gift Cards" },
+                { to: "/shop#gift-cards", label: "Gift Cards" },
               ].map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className="text-sm text-white/70 hover:text-white transition-colors">

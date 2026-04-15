@@ -221,7 +221,7 @@ export default function ShopPage() {
         )}
 
         {/* Gift Cards */}
-        <div className="mt-12 sm:mt-16">
+        <div id="gift-cards" className="mt-12 sm:mt-16">
           <div className="mb-6">
             <h2 className="font-display text-2xl sm:text-3xl text-white">Gift Cards</h2>
           </div>
